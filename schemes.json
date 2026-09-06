@@ -1,0 +1,408 @@
+{
+  "dataset_name": "YojanaMitra Government Scheme Dataset",
+  "dataset_version": "1.0.0",
+  "generated_on": "2026-09-05",
+  "purpose": "Prototype source-of-truth dataset for YojanaMitra scheme matching and explainability.",
+  "important_rule": "Use this dataset for prototype rule evaluation. Do not let an LLM invent or override eligibility rules.",
+  "verification_policy": "Every scheme entry contains an official source and verification date. Re-verify official guidelines before production deployment.",
+  "currency": "INR",
+  "schemes": [
+    {
+      "scheme_id": "PMEGP",
+      "name": "Prime Minister's Employment Generation Programme",
+      "short_name": "PMEGP",
+      "ministry": "Ministry of Micro, Small & Medium Enterprises",
+      "implementing_agencies": [
+        "KVIC",
+        "KVIB",
+        "DIC",
+        "Coir Board"
+      ],
+      "purpose": "Credit-linked subsidy programme for setting up new micro enterprises and for specified upgradation of existing PMEGP/REGP/MUDRA units.",
+      "status": "active",
+      "scheme_type": [
+        "credit",
+        "capital_subsidy",
+        "entrepreneurship"
+      ],
+      "target_users": [
+        "individual entrepreneurs",
+        "self-help groups",
+        "eligible institutions",
+        "production co-operative societies",
+        "charitable trusts"
+      ],
+      "business_types": [
+        "manufacturing",
+        "service",
+        "business",
+        "trading"
+      ],
+      "geography": "India",
+      "eligibility": {
+        "individual_age_min": 18,
+        "income_ceiling": null,
+        "new_project_required": true,
+        "education_requirement": {
+          "applies_when": {
+            "manufacturing_project_cost_above": 1000000,
+            "service_business_project_cost_above": 500000
+          },
+          "minimum_education": "VIII standard pass"
+        },
+        "existing_units": "Not eligible for new-unit assistance if the unit is an existing unit under PMRY/REGP or another Government scheme, or has already availed Government subsidy under another Government scheme.",
+        "special_categories": [
+          "SC",
+          "ST",
+          "OBC",
+          "minorities",
+          "women",
+          "ex-servicemen",
+          "persons with disabilities",
+          "NER",
+          "hill areas",
+          "border areas"
+        ]
+      },
+      "financial_assistance": {
+        "maximum_project_cost_for_subsidy": {
+          "manufacturing": 5000000,
+          "service_business": 2000000
+        },
+        "beneficiary_contribution": {
+          "general": 0.1,
+          "special": 0.05
+        },
+        "subsidy_rate": {
+          "general": {
+            "urban": 0.15,
+            "rural": 0.25
+          },
+          "special": {
+            "urban": 0.25,
+            "rural": 0.35
+          }
+        },
+        "bank_finance": "Balance amount of project cost is financed by banks, subject to sanction and applicable rules.",
+        "interest_rate": "As determined by the financing bank.",
+        "repayment": "As determined by the financing bank and applicable PMEGP guidelines."
+      },
+      "documents_required": [
+        "Applicant identity/KYC documents",
+        "Applicant address proof",
+        "Category/community certificate where applicable",
+        "Educational qualification proof where applicable",
+        "Project report/business plan",
+        "Bank-required documents",
+        "Other documents prescribed by the implementing agency/bank"
+      ],
+      "partner_types": [
+        "public_sector_bank",
+        "private_sector_bank",
+        "regional_rural_bank",
+        "cooperative_bank",
+        "other_eligible_financial_institution"
+      ],
+      "prototype_tags": [
+        "chai_stall",
+        "tailoring",
+        "retail",
+        "food_processing",
+        "handicraft",
+        "small_manufacturing",
+        "service_business"
+      ],
+      "source": {
+        "title": "Revised PMEGP Scheme Guidelines",
+        "url": "https://www.kviconline.gov.in/pmegpeportal/dashboard/notification/Revised_PMEGP_Scheme_Guidelines_07122023_compressed.pdf",
+        "source_type": "official_government",
+        "verified_on": "2026-09-05"
+      },
+      "notes": [
+        "The current revised guidelines found on the official KVIC portal state ₹50 lakh for manufacturing and ₹20 lakh for service/business as the project-cost ceilings for margin-money subsidy.",
+        "Do not use older PMEGP figures such as ₹25 lakh/₹10 lakh in the application logic."
+      ]
+    },
+    {
+      "scheme_id": "PMMY",
+      "name": "Pradhan Mantri MUDRA Yojana",
+      "short_name": "PMMY",
+      "ministry": "Department of Financial Services, Ministry of Finance",
+      "purpose": "Institutional collateral-free credit for micro enterprises and income-generating non-farm activities, including eligible activities allied to agriculture.",
+      "status": "active",
+      "scheme_type": [
+        "credit",
+        "working_capital",
+        "term_loan"
+      ],
+      "target_users": [
+        "micro enterprises",
+        "small business entrepreneurs",
+        "vendors",
+        "traders",
+        "shopkeepers",
+        "service businesses",
+        "eligible allied-agriculture non-farm activities"
+      ],
+      "business_types": [
+        "manufacturing",
+        "trading",
+        "service",
+        "food_products",
+        "textile_products",
+        "transport",
+        "shopkeeping",
+        "eligible_agri_allied_non_farm"
+      ],
+      "geography": "India",
+      "eligibility": {
+        "citizenship": "Indian citizen",
+        "credit_purpose": [
+          "business loan for vendors, traders, shopkeepers and service activities",
+          "working capital",
+          "equipment finance for micro units",
+          "commercial transport vehicles",
+          "eligible allied-agriculture non-farm income-generating activities"
+        ],
+        "default_status": "Applicant should not be in default to a bank or financial institution.",
+        "loan_limit_for_standard_pmmy": 1000000,
+        "tarun_plus_condition": "Loans above ₹10 lakh and up to ₹20 lakh are available under Tarun Plus for entrepreneurs who have successfully repaid a previous Tarun-category loan, subject to scheme rules."
+      },
+      "financial_assistance": {
+        "categories": [
+          {
+            "name": "Shishu",
+            "min_amount_exclusive": 0,
+            "max_amount": 50000
+          },
+          {
+            "name": "Kishor",
+            "min_amount_exclusive": 50000,
+            "max_amount": 500000
+          },
+          {
+            "name": "Tarun",
+            "min_amount_exclusive": 500000,
+            "max_amount": 1000000
+          },
+          {
+            "name": "Tarun Plus",
+            "min_amount_exclusive": 1000000,
+            "max_amount": 2000000,
+            "special_condition": "Previous Tarun-category loan successfully repaid."
+          }
+        ],
+        "maximum_amount": 2000000,
+        "collateral_required": false,
+        "interest_rate": "Determined by the lending institution under applicable guidelines.",
+        "repayment": "Determined by the lending institution and applicable product terms."
+      },
+      "documents_required": [
+        "KYC documents",
+        "Business/activity information",
+        "Documents required by the lending institution",
+        "Other documents applicable to the selected MUDRA product"
+      ],
+      "partner_types": [
+        "public_sector_bank",
+        "private_sector_bank",
+        "regional_rural_bank",
+        "small_finance_bank",
+        "nbfc",
+        "microfinance_institution"
+      ],
+      "prototype_tags": [
+        "chai_stall",
+        "tailoring",
+        "retail",
+        "food_business",
+        "repair_shop",
+        "beauty_salon",
+        "small_service_business"
+      ],
+      "source": {
+        "title": "Pradhan Mantri MUDRA Yojana (PMMY)",
+        "url": "https://financialservices.gov.in/pradhan-mantri-mudra-yojana-pmmy",
+        "source_type": "official_government",
+        "verified_on": "2026-09-05"
+      },
+      "notes": [
+        "The official Department of Financial Services page states collateral is not required.",
+        "Loan approval, interest rate and repayment remain subject to the lending institution's credit/risk policies."
+      ]
+    },
+    {
+      "scheme_id": "PM_SVANIDHI",
+      "name": "Prime Minister Street Vendor's AtmaNirbhar Nidhi",
+      "short_name": "PM SVANidhi",
+      "ministry": "Ministry of Housing and Urban Affairs",
+      "purpose": "Working-capital credit and related incentives for street vendors, with progressive loan tranches and incentives for regular repayment and digital transactions.",
+      "status": "active",
+      "scheme_type": [
+        "working_capital",
+        "credit",
+        "interest_subsidy",
+        "digital_incentive"
+      ],
+      "target_users": [
+        "street vendors"
+      ],
+      "business_types": [
+        "street_vending",
+        "street_food",
+        "small_vending"
+      ],
+      "geography": "Urban areas and eligible surrounding peri-urban/rural areas",
+      "eligibility": {
+        "primary_condition": "Applicant must be an eligible street vendor under the PM SVANidhi framework.",
+        "vendor_identification": [
+          "Certificate of Vending / Identity Card",
+          "Eligible vendors in the surveyed list",
+          "Eligible vendors with Letter of Recommendation/provisional documentation as provided under scheme procedures"
+        ],
+        "kyc": "Aadhaar and other accepted KYC documents as prescribed.",
+        "collateral_required": false
+      },
+      "financial_assistance": {
+        "tranches": [
+          {
+            "name": "First loan",
+            "maximum_amount": 10000,
+            "tenure": "Up to 1 year"
+          },
+          {
+            "name": "Second loan",
+            "maximum_amount": 20000,
+            "condition": "Eligible after timely/early repayment of the previous loan and subject to scheme rules."
+          },
+          {
+            "name": "Third loan",
+            "maximum_amount": 50000,
+            "condition": "Eligible after successful repayment of the previous tranche and subject to scheme rules."
+          }
+        ],
+        "interest_subsidy_rate": 0.07,
+        "digital_cashback_max_per_year": 1200
+      },
+      "documents_required": [
+        "Certificate of Vending / Identity Card / eligible vendor documentation",
+        "Aadhaar or accepted KYC document",
+        "Bank/account details as required",
+        "Other documents required by the implementing process"
+      ],
+      "partner_types": [
+        "scheduled_bank",
+        "regional_rural_bank",
+        "small_finance_bank",
+        "cooperative_bank",
+        "nbfc",
+        "mfi",
+        "banking_correspondent"
+      ],
+      "prototype_tags": [
+        "chai_stall",
+        "street_food",
+        "fruit_vendor",
+        "vegetable_vendor",
+        "small_vending"
+      ],
+      "source": {
+        "title": "PM SVANidhi Scheme Guidelines",
+        "url": "https://www.mohua.gov.in/pm_svandhi/PMSVANidhi%20Guideline_English.pdf",
+        "source_type": "official_government",
+        "verified_on": "2026-09-05"
+      },
+      "notes": [
+        "The scheme is specifically for eligible street vendors; do not recommend it to every small-business applicant.",
+        "Lenders still apply their own credit/risk policies."
+      ]
+    },
+    {
+      "scheme_id": "PM_DAKSH_EDP",
+      "name": "PM-DAKSH – Entrepreneurial Development Programme",
+      "short_name": "PM-DAKSH EDP",
+      "ministry": "Ministry of Social Justice & Empowerment",
+      "purpose": "Entrepreneurial development and skill-oriented training support for specified target groups.",
+      "status": "active",
+      "scheme_type": [
+        "training",
+        "entrepreneurship_support"
+      ],
+      "target_users": [
+        "SC",
+        "OBC",
+        "EWS",
+        "DNT",
+        "Safai Mitras and waste pickers"
+      ],
+      "business_types": [
+        "self_employment",
+        "entrepreneurship"
+      ],
+      "geography": "India",
+      "eligibility": {
+        "citizenship": "Indian national",
+        "age_min": 18,
+        "age_max": 45,
+        "target_groups": [
+          "SC",
+          "OBC",
+          "EWS",
+          "DNT",
+          "Safai Mitras",
+          "waste pickers"
+        ],
+        "income_condition": {
+          "OBC": "Annual family income below ₹3,00,000",
+          "EWS": "Annual family income below ₹3,00,000",
+          "SC": "No income limit stated on the current myScheme eligibility page",
+          "DNT": "No income limit stated on the current myScheme eligibility page",
+          "Safai_Mitras_and_waste_pickers": "No income limit stated on the current myScheme eligibility page"
+        },
+        "aadhaar": "Valid Aadhaar required, subject to stated state-level exception.",
+        "bank_account": "Aadhaar-linked bank account required.",
+        "registration": "Registration on Skill India Digital Hub required."
+      },
+      "financial_assistance": {
+        "type": "training_support",
+        "training_cost": "As per applicable Common Cost Norms or concerned board rules.",
+        "stipend": {
+          "non_residential": {
+            "SC": 1500,
+            "OBC": 1000,
+            "EWS": 1000,
+            "Safai_Mitras_and_waste_pickers": 1500
+          },
+          "residential": "Boarding/lodging may be provided under applicable norms; specific stipend rules apply to Safai Mitras and waste pickers."
+        }
+      },
+      "documents_required": [
+        "Proof of nationality",
+        "Aadhaar",
+        "Category/group proof where applicable",
+        "Income proof where applicable",
+        "Aadhaar-linked bank account details",
+        "Skill India Digital Hub registration"
+      ],
+      "partner_types": [
+        "training_institution",
+        "skill_development_institution"
+      ],
+      "prototype_tags": [
+        "training",
+        "entrepreneurship",
+        "skill_development"
+      ],
+      "source": {
+        "title": "PM-DAKSH eligibility information on myScheme",
+        "url": "https://www.myscheme.gov.in/schemes/pm-daksh",
+        "source_type": "official_government",
+        "verified_on": "2026-09-05"
+      },
+      "notes": [
+        "This is a training/entrepreneurship-support component, not a substitute for a business loan.",
+        "Use it in YojanaMitra's Support Stack when the user satisfies the target-group criteria."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+[
+  {
+    "id": "pmegp",
+    "name": "Prime Minister's Employment Generation Programme",
+    "shortName": "PMEGP",
+    "ministry": "Ministry of Micro, Small & Medium Enterprises",
+    "implementingAgency": "KVIC / KVIB / DIC",
+    "category": "loan_with_subsidy",
+    "purpose": "Generate self-employment through establishment of micro-enterprises in non-farm sector",
+    "description": "PMEGP is a credit-linked subsidy programme that provides financial assistance to set up micro-enterprises. It offers a margin money subsidy of 15-35% of the project cost, with the balance arranged as a bank loan.",
+    "benefits": [
+      "Margin money subsidy: 15% (urban general), 25% (rural general), 25% (urban SC/ST/OBC/minority/women/PwD/NER), 35% (rural SC/ST/OBC/minority/women/PwD/NER)",
+      "Loan up to ₹50 lakhs for manufacturing sector",
+      "Loan up to ₹20 lakhs for service/trading sector",
+      "No collateral required up to ₹10 lakhs (CGTMSE covered)",
+      "Free Entrepreneurship Development Programme (EDP) training (2-week residential)"
+    ],
+    "fundingDetails": {
+      "minAmount": 100000,
+      "maxAmountManufacturing": 5000000,
+      "maxAmountService": 2000000,
+      "currency": "INR",
+      "subsidyPercent": {
+        "urbanGeneral": 15,
+        "ruralGeneral": 25,
+        "urbanSCSTOBCMinorityWomenPwDNER": 25,
+        "ruralSCSTOBCMinorityWomenPwDNER": 35
+      }
+    },
+    "eligibilityCriteria": {
+      "minAge": 18,
+      "maxAge": null,
+      "gender": ["male", "female", "other"],
+      "category": ["general", "sc", "st", "obc", "minority"],
+      "education": {
+        "required": true,
+        "minimumForProjectAbove10L": "8th_pass",
+        "note": "For projects above ₹10 lakhs (manufacturing) or ₹5 lakhs (service), 8th pass is required"
+      },
+      "businessStages": ["idea", "startup"],
+      "occupation": ["unemployed", "traditional_artisan", "any"],
+      "states": "all",
+      "existingBeneficiary": {
+        "allowedIfPreviousPMEGP": false,
+        "note": "Existing PMEGP/PMRY/REGP beneficiaries not eligible for second loan under PMEGP"
+      },
+      "streetVendor": false,
+      "maxProjectCostManufacturing": 5000000,
+      "maxProjectCostService": 2000000,
+      "selfHelpGroup": false,
+      "institutions": true,
+      "note": "New enterprises only — existing units not eligible unless they are SC/ST/PwD/NER/aspirational district beneficiaries seeking upgradation"
+    },
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "PAN Card",
+      "Bank Account Passbook",
+      "Passport Photo (3 copies)",
+      "Residence Proof",
+      "Educational Certificate (for project > ₹10L)",
+      "Project Report / Business Plan",
+      "Caste Certificate (if SC/ST/OBC)",
+      "Special Category Certificate (if applicable)",
+      "EDP Training Certificate (after selection)"
+    ],
+    "applicationRoute": {
+      "online": "https://www.kviconline.gov.in/pmegpeportal/",
+      "offline": "Nearest KVIC / KVIB / District Industries Centre (DIC) office",
+      "helpline": "1800-300-25050",
+      "processingTime": "30-45 working days"
+    },
+    "successRate": 72,
+    "tags": ["manufacturing", "service", "subsidy", "kvic", "self-employment", "startup", "rural", "urban"]
+  },
+  {
+    "id": "mudra-shishu",
+    "name": "Pradhan Mantri MUDRA Yojana – Shishu",
+    "shortName": "MUDRA Shishu",
+    "ministry": "Ministry of Finance",
+    "implementingAgency": "MUDRA Ltd. / Scheduled Commercial Banks / MFIs / NBFCs",
+    "category": "loan",
+    "purpose": "Provide micro-finance to very small / new businesses with funding needs up to ₹50,000",
+    "description": "Shishu category under PMMY covers loans up to ₹50,000 for micro-entrepreneurs who are just starting or have very small funding needs. No collateral required. Available at all public sector banks, private banks, MFIs and NBFCs.",
+    "benefits": [
+      "Loan up to ₹50,000",
+      "No collateral required",
+      "Repayment period 3–5 years",
+      "Competitive interest rates (typically 9–12% p.a.)",
+      "MUDRA Card (RuPay) for working capital flexibility",
+      "Available through 27+ lender types nationwide"
+    ],
+    "fundingDetails": {
+      "minAmount": 10000,
+      "maxAmount": 50000,
+      "currency": "INR",
+      "interestRateRange": { "min": 9, "max": 12 },
+      "repaymentYears": { "min": 3, "max": 5 }
+    },
+    "eligibilityCriteria": {
+      "minAge": 18,
+      "maxAge": null,
+      "gender": ["male", "female", "other"],
+      "category": ["general", "sc", "st", "obc", "minority"],
+      "education": { "required": false },
+      "businessStages": ["idea", "startup"],
+      "occupation": ["any"],
+      "states": "all",
+      "existingBeneficiary": {
+        "allowedIfPreviousMUDRA": true,
+        "note": "Can avail multiple times if previous loan is fully repaid"
+      },
+      "streetVendor": true,
+      "noBadCIBIL": true,
+      "note": "Non-farm income generating activities; excludes farm credit. Applicant must not have defaulted on any prior loan."
+    },
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "PAN Card (or Form 60)",
+      "Bank Account Passbook / Statement (last 6 months)",
+      "Passport Photo (2 copies)",
+      "Business Plan / Details of Activity",
+      "Proof of Business Address (if existing)",
+      "Quotation for Machinery / Equipment (if applicable)"
+    ],
+    "applicationRoute": {
+      "online": "https://www.mudra.org.in",
+      "offline": "Any scheduled commercial bank, MFI, or NBFC branch",
+      "helpline": "1800-180-1111",
+      "processingTime": "7-14 working days"
+    },
+    "successRate": 85,
+    "tags": ["micro-loan", "no-collateral", "quick", "startup", "street-vendor", "small-business", "working-capital"]
+  },
+  {
+    "id": "mudra-kishor",
+    "name": "Pradhan Mantri MUDRA Yojana – Kishor",
+    "shortName": "MUDRA Kishor",
+    "ministry": "Ministry of Finance",
+    "implementingAgency": "MUDRA Ltd. / Scheduled Commercial Banks / MFIs / NBFCs",
+    "category": "loan",
+    "purpose": "Provide working capital and term loan to growing micro-enterprises requiring ₹50,001 to ₹5 lakhs",
+    "description": "Kishor covers enterprises that have moved past the startup phase and need larger financing for expansion, equipment, or working capital. Lenders may require basic financials for existing businesses.",
+    "benefits": [
+      "Loan ₹50,001 to ₹5 lakhs",
+      "No collateral up to ₹10 lakh (CGTMSE covered)",
+      "Flexible repayment up to 7 years",
+      "Can be used for machinery, working capital, or infrastructure",
+      "MUDRA Card for working capital"
+    ],
+    "fundingDetails": {
+      "minAmount": 50001,
+      "maxAmount": 500000,
+      "currency": "INR",
+      "interestRateRange": { "min": 10, "max": 13 },
+      "repaymentYears": { "min": 3, "max": 7 }
+    },
+    "eligibilityCriteria": {
+      "minAge": 18,
+      "maxAge": null,
+      "gender": ["male", "female", "other"],
+      "category": ["general", "sc", "st", "obc", "minority"],
+      "education": { "required": false },
+      "businessStages": ["startup", "growing"],
+      "occupation": ["any"],
+      "states": "all",
+      "existingBeneficiary": {
+        "allowedIfPreviousMUDRA": true
+      },
+      "streetVendor": false,
+      "noBadCIBIL": true,
+      "note": "Existing businesses with some track record preferred. Bank may ask for last 1-year financials."
+    },
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "PAN Card",
+      "Bank Account Statement (last 12 months)",
+      "Passport Photo",
+      "Business Proof (GST, Shop Act, trade licence, or self-declaration)",
+      "Existing Business Financials (P&L, balance sheet if available)",
+      "Quotation for Purchase (if any)"
+    ],
+    "applicationRoute": {
+      "online": "https://www.mudra.org.in",
+      "offline": "Any scheduled commercial bank, MFI, or NBFC branch",
+      "helpline": "1800-180-1111",
+      "processingTime": "10-21 working days"
+    },
+    "successRate": 78,
+    "tags": ["growth-loan", "expansion", "working-capital", "equipment", "growing-business"]
+  },
+  {
+    "id": "pm-svanidhi",
+    "name": "PM Street Vendor's AtmaNirbhar Nidhi",
+    "shortName": "PM SVANidhi",
+    "ministry": "Ministry of Housing and Urban Affairs",
+    "implementingAgency": "Urban Local Bodies (ULB) / Scheduled Commercial Banks / MFIs / SHGs",
+    "category": "loan",
+    "purpose": "Provide affordable working capital loans exclusively to street vendors to resume livelihood after COVID-19 disruption",
+    "description": "PM SVANidhi is a special micro-credit scheme for street vendors operating in urban areas. It provides collateral-free loans starting at ₹10,000, with enhancement up to ₹50,000 upon timely repayment. Digital transactions earn cash-back rewards. A street vendor certificate or ULB registration is essential.",
+    "benefits": [
+      "Initial loan of ₹10,000 (1st tranche)",
+      "Enhanced loan of ₹20,000 (2nd tranche, on timely repayment)",
+      "Further enhanced loan of ₹50,000 (3rd tranche)",
+      "No collateral required",
+      "Interest subsidy of 7% per annum on timely repayment",
+      "Digital transaction incentive up to ₹1,200 per year",
+      "Credit score building through formal banking channel"
+    ],
+    "fundingDetails": {
+      "tranche1": 10000,
+      "tranche2": 20000,
+      "tranche3": 50000,
+      "currency": "INR",
+      "interestSubsidyPercent": 7,
+      "repaymentMonths": 12
+    },
+    "eligibilityCriteria": {
+      "minAge": 18,
+      "maxAge": null,
+      "gender": ["male", "female", "other"],
+      "category": ["general", "sc", "st", "obc", "minority"],
+      "education": { "required": false },
+      "businessStages": ["startup", "growing", "established"],
+      "occupation": ["street_vendor"],
+      "states": "urban_areas_only",
+      "streetVendor": true,
+      "requiredProof": "street_vendor_certificate_or_letter_of_recommendation",
+      "existingBeneficiary": { "allowedIfPreviousSVANidhi": true },
+      "note": "Applicant MUST be a street vendor operating in an urban area with a Certificate of Vending issued by ULB OR a Letter of Recommendation from ULB/TVC. Scheme is exclusively for street vendors."
+    },
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "Certificate of Vending (CoV) issued by ULB OR Letter of Recommendation (LoR) from ULB/TVC",
+      "Bank Account Passbook / Jan Dhan Account",
+      "Passport Photo",
+      "Mobile Number (linked to Aadhaar)",
+      "Proof of Street Vending Activity (photos, self-declaration)"
+    ],
+    "applicationRoute": {
+      "online": "https://pmsvanidhi.mohua.gov.in",
+      "offline": "Nearest Urban Local Body (Municipal Corporation / Municipality) or lending institution",
+      "helpline": "1800-11-1979",
+      "processingTime": "30 working days from application"
+    },
+    "successRate": 80,
+    "tags": ["street-vendor", "urban", "micro-loan", "no-collateral", "digital-incentive", "working-capital", "covid-relief"]
+  },
+  {
+    "id": "pm-daksh",
+    "name": "PM-DAKSH Yojana",
+    "shortName": "PM-DAKSH",
+    "ministry": "Ministry of Social Justice and Empowerment",
+    "implementingAgency": "National Scheduled Castes Finance and Development Corporation (NSFDC) and similar bodies",
+    "category": "training",
+    "purpose": "Provide skill development and training to SC, OBC, Safai Karamcharis, Denotified Nomadic Tribes to enhance employability and self-employment",
+    "description": "PM-DAKSH (Pradhan Mantri Dakshta Aur Kushalta Sampann Hitgrahi) is a skilling scheme for marginalized communities. It provides free short-term and long-term skill training, with stipend, toolkits, and placement assistance. Not a loan scheme — it is a training and capacity-building programme.",
+    "benefits": [
+      "Free skill training (duration: 5 days to 1 year depending on course)",
+      "Stipend: ₹1,000/month to ₹1,500/month for residential training",
+      "Toolkit/material cost covered by government",
+      "Placement assistance after training completion",
+      "Certificate recognized by National Skill Qualification Framework (NSQF)",
+      "Covers trades: weaving, tailoring, beauty & wellness, food processing, electrical, plumbing, etc."
+    ],
+    "fundingDetails": {
+      "type": "training_grant",
+      "stipendPerMonth": { "min": 1000, "max": 1500 },
+      "currency": "INR",
+      "costToApplicant": 0
+    },
+    "eligibilityCriteria": {
+      "minAge": 18,
+      "maxAge": 45,
+      "gender": ["male", "female", "other"],
+      "category": ["sc", "obc", "safai_karamchari", "denotified_nomadic_tribe"],
+      "education": { "required": false, "note": "No minimum education required for most courses" },
+      "businessStages": ["idea", "startup"],
+      "occupation": ["unemployed", "self_employed_informal", "any"],
+      "states": "all",
+      "incomeCriteria": {
+        "annualFamilyIncome": {
+          "maxForSC": 300000,
+          "maxForOBC": 100000
+        }
+      },
+      "streetVendor": false,
+      "note": "Exclusively for SC and OBC categories (and Safai Karamcharis / DNT). OBC annual family income must be below ₹1 lakh; SC annual family income must be below ₹3 lakhs."
+    },
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "Caste Certificate (SC/OBC/DNT certificate mandatory)",
+      "Income Certificate",
+      "Bank Account Passbook",
+      "Passport Photo",
+      "Educational Certificate (if available)"
+    ],
+    "applicationRoute": {
+      "online": "https://pmdaksh.dosje.gov.in",
+      "offline": "NSFDC / State Channelizing Agency / District Social Welfare Office",
+      "helpline": "1800-180-5500",
+      "processingTime": "Batch enrolment — 15-30 days"
+    },
+    "successRate": 88,
+    "tags": ["training", "skill-development", "sc", "obc", "free", "stipend", "placement", "marginalized"]
+  }
+]
