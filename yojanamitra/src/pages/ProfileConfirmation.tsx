@@ -126,7 +126,7 @@ export default function ProfileConfirmation() {
 
   const renderFieldValue = (f: EditableField) => {
     const val = profile[f.field];
-    if (val === null || val === undefined || val === '') return <span className="text-red-400 italic text-sm">Not detected</span>;
+    if (val === null || val === undefined || val === '') return <span className="text-red-400 italic text-sm">{t('not_provided', language)}</span>;
     if (f.type === 'number') return <span className="font-bold text-gray-900">{formatCurrency(Number(val))}</span>;
     if (f.field === 'businessStage') return <span className="font-bold text-gray-900">{STAGE_LABELS[val as BusinessStage]}</span>;
     if (f.field === 'category') return <span className="font-bold text-gray-900">{CATEGORY_LABELS[val as Category] ?? String(val)}</span>;
@@ -148,10 +148,10 @@ export default function ProfileConfirmation() {
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-1.5 text-sm font-medium text-green-700 mb-3">
             <CheckCircle2 size={14} />
-            Profile Extracted
+            {t('profile_extracted', language)}
           </div>
           <h1 className="text-2xl font-extrabold text-[#1e3a5f]">{t('we_understood', language)}</h1>
-          <p className="text-gray-500 text-sm mt-1">Review and edit any field before we find your schemes.</p>
+          <p className="text-gray-500 text-sm mt-1">{t('review_edit', language)}</p>
         </div>
 
         {/* Extraction Method Note */}
@@ -159,9 +159,14 @@ export default function ProfileConfirmation() {
           <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 mb-4 flex items-start gap-2.5 text-xs text-blue-700">
             <Info size={14} className="flex-shrink-0 mt-0.5" />
             <span>
-              Profile extracted using <strong>{extraction.extractionMethod === 'local_mock' ? 'local pattern matching' : 'AI language model'}</strong>{' '}
-              from your input in <strong>{extraction.language === 'hi' ? 'Hindi' : extraction.language === 'mr' ? 'Marathi' : extraction.language === 'mixed' ? 'mixed language' : 'English'}</strong>.{' '}
-              Confidence shown per field — please verify and edit any inaccuracies.
+              {language === 'hi'
+                ? <>प्रोफ़ाइल <strong>{extraction.extractionMethod === 'local_mock' ? 'स्थानीय पैटर्न मिलान' : 'AI भाषा मॉडल'}</strong> का उपयोग करके निकाली गई। कृपया सत्यापित करें।</>
+                : language === 'mr'
+                ? <>प्रोफाइल <strong>{extraction.extractionMethod === 'local_mock' ? 'स्थानिक पॅटर्न जुळवणी' : 'AI भाषा मॉडेल'}</strong> वापरून काढली. कृपया तपासा.</>
+                : <>Profile extracted using <strong>{extraction.extractionMethod === 'local_mock' ? 'local pattern matching' : 'AI language model'}</strong>{' '}
+                  from your input in <strong>{extraction.language === 'hi' ? 'Hindi' : extraction.language === 'mr' ? 'Marathi' : extraction.language === 'mixed' ? 'mixed language' : 'English'}</strong>.{' '}
+                  Confidence shown per field — please verify and edit any inaccuracies.</>
+              }
             </span>
           </div>
         )}
@@ -171,9 +176,11 @@ export default function ProfileConfirmation() {
           <div className="bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 mb-4 flex items-start gap-2.5">
             <AlertCircle size={16} className="text-orange-500 flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-orange-800">Some fields were not detected</p>
+              <p className="text-sm font-semibold text-orange-800">
+                {language === 'hi' ? 'कुछ फ़ील्ड नहीं मिले' : language === 'mr' ? 'काही फील्ड सापडले नाहीत' : 'Some fields were not detected'}
+              </p>
               <p className="text-xs text-orange-700 mt-0.5">
-                Please fill: {missingRequired.map((f) => f.label).join(', ')}
+                {language === 'hi' ? 'कृपया भरें:' : language === 'mr' ? 'कृपया भरा:' : 'Please fill:'} {missingRequired.map((f) => f.label).join(', ')}
               </p>
             </div>
           </div>
@@ -217,8 +224,8 @@ export default function ProfileConfirmation() {
                             onKeyDown={(e) => e.key === 'Enter' && saveEdit()}
                           />
                         )}
-                        <button onClick={saveEdit} className="text-xs bg-[#1e3a5f] text-white px-3 py-1.5 rounded-lg font-semibold">Save</button>
-                        <button onClick={() => setEditingField(null)} className="text-xs text-gray-400 px-2 py-1.5">Cancel</button>
+                        <button onClick={saveEdit} className="text-xs bg-[#1e3a5f] text-white px-3 py-1.5 rounded-lg font-semibold">{t('save', language)}</button>
+                        <button onClick={() => setEditingField(null)} className="text-xs text-gray-400 px-2 py-1.5">{t('cancel', language)}</button>
                       </div>
                     ) : (
                       <div className="mt-0.5">{renderFieldValue(f)}</div>
@@ -240,18 +247,20 @@ export default function ProfileConfirmation() {
 
         {/* Also configure key toggles */}
         <div className="card shadow-sm mb-6">
-          <p className="text-sm font-bold text-[#1e3a5f] mb-3">Quick Eligibility Toggles</p>
+          <p className="text-sm font-bold text-[#1e3a5f] mb-3">
+            {language === 'hi' ? 'त्वरित पात्रता टॉगल' : language === 'mr' ? 'त्वरित पात्रता टॉगल' : 'Quick Eligibility Toggles'}
+          </p>
           <div className="grid sm:grid-cols-2 gap-3">
             {[
-              { key: 'isStreetVendor', label: 'Street Vendor' },
-              { key: 'aadhaarVerified', label: 'Aadhaar Available' },
-              { key: 'panAvailable', label: 'PAN Available' },
-              { key: 'bankAccount', label: 'Bank Account' },
-              { key: 'existingLoan', label: 'Has Existing Loan' },
-              { key: 'hasCIBILDefault', label: 'CIBIL Default' },
-              { key: 'previousPMEGPBeneficiary', label: 'Previous PMEGP Beneficiary' },
-              { key: 'casteCertificateAvailable', label: 'Caste Certificate Available' },
-              { key: 'hasStreetVendorCertificate', label: 'Street Vendor Certificate (CoV)' },
+              { key: 'isStreetVendor',              label: language === 'hi' ? 'स्ट्रीट वेंडर'             : language === 'mr' ? 'रस्त्यावरील विक्रेता'       : 'Street Vendor' },
+              { key: 'aadhaarVerified',              label: language === 'hi' ? 'आधार उपलब्ध'               : language === 'mr' ? 'आधार उपलब्ध'                : 'Aadhaar Available' },
+              { key: 'panAvailable',                 label: language === 'hi' ? 'PAN उपलब्ध'                : language === 'mr' ? 'PAN उपलब्ध'                  : 'PAN Available' },
+              { key: 'bankAccount',                  label: language === 'hi' ? 'बैंक खाता'                 : language === 'mr' ? 'बँक खाते'                    : 'Bank Account' },
+              { key: 'existingLoan',                 label: language === 'hi' ? 'मौजूदा ऋण है'              : language === 'mr' ? 'विद्यमान कर्ज आहे'           : 'Has Existing Loan' },
+              { key: 'hasCIBILDefault',              label: language === 'hi' ? 'CIBIL डिफ़ॉल्ट'            : language === 'mr' ? 'CIBIL डिफॉल्ट'               : 'CIBIL Default' },
+              { key: 'previousPMEGPBeneficiary',     label: language === 'hi' ? 'पूर्व PMEGP लाभार्थी'      : language === 'mr' ? 'मागील PMEGP लाभार्थी'        : 'Previous PMEGP Beneficiary' },
+              { key: 'casteCertificateAvailable',    label: language === 'hi' ? 'जाति प्रमाणपत्र उपलब्ध'    : language === 'mr' ? 'जात प्रमाणपत्र उपलब्ध'      : 'Caste Certificate Available' },
+              { key: 'hasStreetVendorCertificate',   label: language === 'hi' ? 'स्ट्रीट वेंडर प्रमाणपत्र' : language === 'mr' ? 'रस्त्यावरील विक्रेता प्रमाणपत्र' : 'Street Vendor Certificate (CoV)' },
             ].map(({ key, label }) => (
               <label key={key} className="flex items-center gap-2.5 cursor-pointer">
                 <input
@@ -276,7 +285,12 @@ export default function ProfileConfirmation() {
           <ArrowRight size={16} />
         </button>
         <p className="text-center text-xs text-gray-400 mt-3">
-          You can edit your profile at any time from the dashboard.
+          {language === 'hi'
+            ? 'आप डैशबोर्ड से किसी भी समय अपनी प्रोफ़ाइल संपादित कर सकते हैं।'
+            : language === 'mr'
+            ? 'तुम्ही डॅशबोर्डवरून कधीही तुमची प्रोफाइल संपादित करू शकता.'
+            : 'You can edit your profile at any time from the dashboard.'
+          }
         </p>
       </div>
     </div>

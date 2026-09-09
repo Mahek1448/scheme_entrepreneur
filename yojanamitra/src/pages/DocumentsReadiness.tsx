@@ -44,35 +44,72 @@ export default function DocumentChecklist() {
     return { total: allDocs.size, available: allAvail.length };
   }, [recommendations, docStatus]);
 
+  // Translation helpers for dynamic phrases
+  const missingMsg: Record<string, string> = {
+    en: `You are missing ${missing.length} document(s) for ${currentRec?.scheme.shortName ?? ''}. Click any document above to mark it as available once you have it ready.`,
+    hi: `आपके पास ${currentRec?.scheme.shortName ?? ''} के लिए ${missing.length} दस्तावेज़ नहीं हैं। जब तैयार हो, तो ऊपर किसी भी दस्तावेज़ पर क्लिक करें।`,
+    mr: `तुमच्याकडे ${currentRec?.scheme.shortName ?? ''} साठी ${missing.length} कागदपत्रे नाहीत. तयार झाल्यावर वरील कोणत्याही कागदपत्रावर क्लिक करा.`,
+  };
+  const allReadyMsg: Record<string, string> = {
+    en: `All documents ready for ${currentRec?.scheme.shortName ?? ''}! You can now proceed to apply.`,
+    hi: `${currentRec?.scheme.shortName ?? ''} के लिए सभी दस्तावेज़ तैयार हैं! अब आवेदन कर सकते हैं।`,
+    mr: `${currentRec?.scheme.shortName ?? ''} साठी सर्व कागदपत्रे तयार! आता अर्ज करा.`,
+  };
+  const checkReadinessMsg: Record<string, string> = {
+    en: 'Check Application Readiness',
+    hi: 'आवेदन तैयारी जांचें',
+    mr: 'अर्ज तयारी तपासा',
+  };
+  const docsReadyLabel: Record<string, string> = {
+    en: 'docs ready',
+    hi: 'दस्तावेज़ तैयार',
+    mr: 'कागदपत्रे तयार',
+  };
+  const readyLabel: Record<string, string> = {
+    en: 'ready',
+    hi: 'तैयार',
+    mr: 'तयार',
+  };
+
   return (
     <div className="page-container py-8">
       <div className="mb-6">
         <h1 className="section-title flex items-center gap-2">
-          <FileText size={22} /> {t('documents_title', language as 'en')}
+          <FileText size={22} /> {t('documents_title', language)}
         </h1>
-        <p className="text-gray-500 text-sm mt-1">{t('documents_subtitle', language as 'en')}</p>
+        <p className="text-gray-500 text-sm mt-1">{t('documents_subtitle', language)}</p>
       </div>
 
       {/* Overall Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="card p-4 text-center">
           <p className="text-2xl font-extrabold text-green-600">{overallDocs.available}</p>
-          <p className="text-xs text-gray-500 mt-0.5">{t('available', language as 'en')}</p>
+          <p className="text-xs text-gray-500 mt-0.5">{t('available', language)}</p>
         </div>
         <div className="card p-4 text-center">
           <p className="text-2xl font-extrabold text-red-500">{overallDocs.total - overallDocs.available}</p>
-          <p className="text-xs text-gray-500 mt-0.5">{t('missing', language as 'en')}</p>
+          <p className="text-xs text-gray-500 mt-0.5">{t('missing', language)}</p>
         </div>
         <div className="card p-4 text-center">
           <p className="text-2xl font-extrabold text-[#1e3a5f]">{overallDocs.total}</p>
-          <p className="text-xs text-gray-500 mt-0.5">{t('required', language as 'en')}</p>
+          <p className="text-xs text-gray-500 mt-0.5">{t('required', language)}</p>
         </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Scheme Selector */}
         <div className="space-y-2">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Select Scheme</p>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
+            {t('scheme_passport', language)}
+          </p>
+
+          {recommendations.length === 0 && (
+            <div className="card text-center py-8">
+              <FileText size={24} className="mx-auto mb-2 text-gray-200" />
+              <p className="text-sm text-gray-400">{t('no_docs_required', language)}</p>
+            </div>
+          )}
+
           {recommendations.map((r) => {
             const schemeDocs = r.requiredDocuments;
             const schemeAvailable = schemeDocs.filter((d) => !!docStatus[d]).length;
@@ -100,7 +137,7 @@ export default function DocumentChecklist() {
                   </div>
                   <span className="text-xs font-bold text-gray-500">{pct}%</span>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">{schemeAvailable}/{schemeDocs.length} docs ready</p>
+                <p className="text-xs text-gray-400 mt-1">{schemeAvailable}/{schemeDocs.length} {docsReadyLabel[language] ?? docsReadyLabel.en}</p>
               </button>
             );
           })}
@@ -119,7 +156,7 @@ export default function DocumentChecklist() {
                   <p className={cn('text-2xl font-extrabold', completionPct === 100 ? 'text-green-600' : 'text-[#1e3a5f]')}>
                     {completionPct}%
                   </p>
-                  <p className="text-xs text-gray-400">ready</p>
+                  <p className="text-xs text-gray-400">{readyLabel[language] ?? readyLabel.en}</p>
                 </div>
               </div>
 
@@ -134,7 +171,7 @@ export default function DocumentChecklist() {
               {available.length > 0 && (
                 <div className="mb-4">
                   <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-2">
-                    ✓ {t('available', language as 'en')} ({available.length})
+                    ✓ {t('available', language)} ({available.length})
                   </p>
                   <div className="space-y-2">
                     {available.map((doc) => (
@@ -155,7 +192,7 @@ export default function DocumentChecklist() {
               {missing.length > 0 && (
                 <div>
                   <p className="text-xs font-bold text-red-500 uppercase tracking-wider mb-2">
-                    ○ {t('missing', language as 'en')} ({missing.length})
+                    ○ {t('missing', language)} ({missing.length})
                   </p>
                   <div className="space-y-2">
                     {missing.map((doc) => (
@@ -173,9 +210,7 @@ export default function DocumentChecklist() {
                   <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2.5">
                     <AlertTriangle size={15} className="text-amber-500 flex-shrink-0 mt-0.5" />
                     <p className="text-xs text-amber-700">
-                      You are missing <strong>{missing.length}</strong> document(s) for {currentRec.scheme.shortName}.
-                      Click any document above to mark it as available once you have it ready.
-                      Document requirements are sourced directly from the official scheme data.
+                      {missingMsg[language] ?? missingMsg.en}
                     </p>
                   </div>
                 </div>
@@ -184,10 +219,23 @@ export default function DocumentChecklist() {
               {completionPct === 100 && (
                 <div className="mt-4 bg-green-50 border border-green-200 rounded-xl p-4 text-center">
                   <CheckCircle2 size={24} className="text-green-600 mx-auto mb-1" />
-                  <p className="text-sm font-bold text-green-800">All documents ready for {currentRec.scheme.shortName}!</p>
-                  <p className="text-xs text-green-600 mt-0.5">You can now proceed to apply.</p>
+                  <p className="text-sm font-bold text-green-800">{allReadyMsg[language] ?? allReadyMsg.en}</p>
                 </div>
               )}
+            </div>
+          )}
+
+          {!currentRec && recommendations.length === 0 && (
+            <div className="card text-center py-16">
+              <FileText size={36} className="mx-auto mb-3 text-gray-200" />
+              <p className="text-sm font-semibold text-gray-400">{t('no_docs_required', language)}</p>
+              <p className="text-xs text-gray-300 mt-1">{t('complete_profile_desc', language)}</p>
+              <button
+                onClick={() => navigate('/intake')}
+                className="mt-4 btn-primary inline-flex items-center gap-2 mx-auto"
+              >
+                {t('talk_to_yojanamitra', language)} <ArrowRight size={14} />
+              </button>
             </div>
           )}
         </div>
@@ -199,7 +247,7 @@ export default function DocumentChecklist() {
           onClick={() => navigate('/readiness')}
           className="btn-primary flex items-center gap-2"
         >
-          Check Application Readiness <ArrowRight size={16} />
+          {checkReadinessMsg[language] ?? checkReadinessMsg.en} <ArrowRight size={16} />
         </button>
       </div>
     </div>

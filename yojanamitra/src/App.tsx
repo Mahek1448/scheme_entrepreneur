@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppContext, useAppProvider } from './hooks/useAppStore';
 import Layout from './components/layout/Layout';
+import ProtectedRoute from './components/layout/ProtectedRoute';
 import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import SmartIntake from './pages/SmartIntake';
 import ProfileConfirmation from './pages/ProfileConfirmation';
 import Dashboard from './pages/Dashboard';
@@ -23,24 +26,28 @@ export default function App() {
     <BrowserRouter>
       <AppProviderWrapper>
         <Routes>
-          {/* Public / No-layout pages */}
+          {/* Public pages */}
           <Route path="/" element={<Landing />} />
-          <Route path="/intake" element={<SmartIntake />} />
-          <Route path="/profile-confirm" element={<ProfileConfirmation />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-          {/* App shell pages */}
+          {/* Protected intake flow (no layout shell) */}
+          <Route path="/intake" element={<ProtectedRoute><SmartIntake /></ProtectedRoute>} />
+          <Route path="/profile-confirm" element={<ProtectedRoute><ProfileConfirmation /></ProtectedRoute>} />
+
+          {/* Protected app shell pages */}
           <Route element={<Layout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/schemes" element={<SchemePassport />} />
-            <Route path="/schemes/:id" element={<SchemeDetails />} />
-            <Route path="/planner" element={<BusinessCostPlanner />} />
-            <Route path="/documents" element={<DocumentsReadiness />} />
-            <Route path="/readiness" element={<ReadinessScore />} />
-            <Route path="/partners" element={<PartnerRouting />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/schemes" element={<ProtectedRoute><SchemePassport /></ProtectedRoute>} />
+            <Route path="/schemes/:id" element={<ProtectedRoute><SchemeDetails /></ProtectedRoute>} />
+            <Route path="/planner" element={<ProtectedRoute><BusinessCostPlanner /></ProtectedRoute>} />
+            <Route path="/documents" element={<ProtectedRoute><DocumentsReadiness /></ProtectedRoute>} />
+            <Route path="/readiness" element={<ProtectedRoute><ReadinessScore /></ProtectedRoute>} />
+            <Route path="/partners" element={<ProtectedRoute><PartnerRouting /></ProtectedRoute>} />
+            <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           </Route>
 
-          {/* Catch-all redirect */}
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AppProviderWrapper>

@@ -252,7 +252,30 @@ export function recommendSchemes(
   profile: UserProfile,
   schemes: Scheme[]
 ): RecommendationResult[] {
-  const results: RecommendationResult[] = schemes.map((scheme) => {
+  // ─── Intent-based pre-filtering ───────────────────────────────────────────
+  // If the user has a specific non-business intent, filter schemes accordingly.
+  // This prevents PMEGP/MUDRA from showing up for education queries.
+  let filteredSchemes = schemes;
+
+  if (profile.intent === 'EDUCATION_LOAN') {
+    // Only include education/scholarship schemes
+    const educationFiltered = schemes.filter((s) =>
+      s.category === 'grant' ||
+      s.tags.some((tag) => /education|scholarship|student|skill|training/i.test(tag)) ||
+      /education|scholarship|student|vidya/i.test(s.name + ' ' + s.purpose)
+    );
+    // If any education schemes found, use them; otherwise show empty (no-match)
+    filteredSchemes = educationFiltered.length > 0 ? educationFiltered : [];
+  } else if (profile.intent === 'TRAINING') {
+    const trainingFiltered = schemes.filter((s) =>
+      s.category === 'training' ||
+      s.tags.some((tag) => /training|skill|vocational|kaushal/i.test(tag))
+    );
+    filteredSchemes = trainingFiltered.length > 0 ? trainingFiltered : schemes.filter((s) => s.category === 'training');
+  }
+  // WORKING_CAPITAL and BUSINESS use all schemes (ranked by match score)
+
+  const results: RecommendationResult[] = filteredSchemes.map((scheme) => {
     // 1. Compute match score breakdown (pure relevance — no eligibility)
     const breakdown: MatchScoreBreakdown = {
       businessCompatibility: scoreBusinessCompatibility(profile, scheme),

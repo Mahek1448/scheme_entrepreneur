@@ -38,6 +38,7 @@ export interface ExtractionResult {
   isStreetVendor: ExtractedField<boolean>;
   age: ExtractedField<number>;
   educationLevel: ExtractedField<UserProfile['educationLevel']>;
+  intent: ExtractedField<'BUSINESS' | 'EDUCATION_LOAN' | 'WORKING_CAPITAL' | 'TRAINING'>;
   rawText: string;
   language: 'en' | 'hi' | 'mr' | 'mixed';
   extractionMethod: 'local_mock' | 'llm_api';
@@ -252,6 +253,24 @@ function extractLocally(text: string): ExtractionResult {
   const incomeMatch = text.match(/(?:income|earn|kamai|कमाई|income)\s*(?:rs\.?|₹)?\s*([\d,]+)/i);
   if (incomeMatch) monthlyRevenue = parseInt(incomeMatch[1].replace(/,/g, ''), 10);
 
+  // ─── Intent Detection ──────────────────────────────────────────────────────
+  type IntentType = 'BUSINESS' | 'EDUCATION_LOAN' | 'WORKING_CAPITAL' | 'TRAINING';
+  let intent: IntentType = 'BUSINESS';
+
+  // Education loan intent (must check before business to avoid false positives)
+  const educationKeywords = /education\s*loan|student\s*loan|college\s*loan|vidya\s*lakshmi|shiksha|engineering|mbbs|medical\s*college|admission|higher\s*education|पढ़ाई|शिक्षा\s*ऋण|education|शिक्षा/i;
+  if (educationKeywords.test(text)) {
+    intent = 'EDUCATION_LOAN';
+  }
+  // Working capital intent
+  else if (/working\s*capital|karyasheel|कार्यशील\s*पूंजी|कार्यशील\s*भांडवल|working\s*fund/i.test(text)) {
+    intent = 'WORKING_CAPITAL';
+  }
+  // Training intent
+  else if (/skill\s*training|vocational|pradhan\s*mantri\s*kaushal|pmkvy|pm.daksh|kaushal\s*vikas|कौशल|प्रशिक्षण/i.test(text)) {
+    intent = 'TRAINING';
+  }
+
   return {
     businessType: { value: businessType, confidence: businessType ? 'high' : 'unknown' },
     businessStage: { value: businessStage ?? 'idea', confidence: businessStage ? 'medium' : 'low' },
@@ -268,6 +287,7 @@ function extractLocally(text: string): ExtractionResult {
     isStreetVendor: { value: isStreetVendor(businessType, text), confidence: 'medium' },
     age: { value: age, confidence: age ? 'high' : 'unknown' },
     educationLevel: { value: null, confidence: 'unknown' },
+    intent: { value: intent, confidence: intent !== 'BUSINESS' ? 'high' : 'medium' },
     rawText: text,
     language: lang,
     extractionMethod: 'local_mock',
@@ -314,5 +334,6 @@ export function extractionToPartialProfile(
     isStreetVendor: result.isStreetVendor.value ?? existingProfile.isStreetVendor,
     age: result.age.value ?? existingProfile.age,
     educationLevel: result.educationLevel.value ?? existingProfile.educationLevel,
+    intent: result.intent.value ?? existingProfile.intent,
   };
 }

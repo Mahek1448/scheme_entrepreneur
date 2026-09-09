@@ -169,6 +169,7 @@ export interface UserProfile {
     | 'graduate'
     | 'postgraduate';
   hasStreetVendorCertificate: boolean;
+  intent?: 'BUSINESS' | 'EDUCATION_LOAN' | 'WORKING_CAPITAL' | 'TRAINING';
   createdAt: string;
 }
 
@@ -276,6 +277,8 @@ export interface Partner {
   rating: number;
   languages: string[];
   distance?: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 // ─── Notifications ────────────────────────────────────────────────────────────

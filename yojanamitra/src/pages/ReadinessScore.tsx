@@ -13,13 +13,26 @@ export default function ReadinessScore() {
 
   const filledBlocks = Math.round(score.score / 5); // 20 blocks of 5% each
 
+  const readinessLabelKey =
+    score.label === 'Excellent' ? 'readiness_excellent' :
+    score.label === 'Good' ? 'readiness_good' :
+    score.label === 'Fair' ? 'readiness_fair' :
+    'readiness_needs_work';
+
+  const bands = [
+    { range: '85–100', labelKey: 'readiness_excellent' as const, desc: { en: 'Ready to apply', hi: 'आवेदन के लिए तैयार', mr: 'अर्जासाठी तयार' }, color: 'bg-green-50 border-green-200 text-green-700', matchLabel: 'Excellent' },
+    { range: '65–84',  labelKey: 'readiness_good' as const,      desc: { en: 'Minor gaps',     hi: 'मामूली कमी',        mr: 'किरकोळ कमतरता' }, color: 'bg-blue-50 border-blue-200 text-blue-700',  matchLabel: 'Good' },
+    { range: '45–64',  labelKey: 'readiness_fair' as const,      desc: { en: 'Several gaps',   hi: 'कई कमियां',          mr: 'अनेक उणिवा'    }, color: 'bg-amber-50 border-amber-200 text-amber-700', matchLabel: 'Fair' },
+    { range: '0–44',   labelKey: 'readiness_needs_work' as const,desc: { en: 'Significant prep needed', hi: 'महत्वपूर्ण तैयारी चाहिए', mr: 'महत्त्वाची तयारी आवश्यक' }, color: 'bg-red-50 border-red-200 text-red-700', matchLabel: 'Needs Work' },
+  ];
+
   return (
     <div className="page-container py-8">
       <div className="mb-6">
         <h1 className="section-title flex items-center gap-2">
-          <Activity size={22} /> {t('readiness_title', language as 'en')}
+          <Activity size={22} /> {t('readiness_title', language)}
         </h1>
-        <p className="text-gray-500 text-sm mt-1">{t('readiness_subtitle', language as 'en')}</p>
+        <p className="text-gray-500 text-sm mt-1">{t('readiness_subtitle', language)}</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
@@ -44,9 +57,11 @@ export default function ReadinessScore() {
             </div>
           </div>
 
-          <p className="text-xl font-bold mb-1" style={{ color: score.color }}>{score.label}</p>
+          <p className="text-xl font-bold mb-1" style={{ color: score.color }}>
+            {t(readinessLabelKey, language)}
+          </p>
           <p className="text-xs text-gray-400 mb-6">
-            {score.passedItems.length} of {score.items.length} readiness checks passed
+            {score.passedItems.length} / {score.items.length} {t('checks_done', language)}
           </p>
 
           {/* Block Progress */}
@@ -67,18 +82,18 @@ export default function ReadinessScore() {
             onClick={() => navigate('/partners')}
             className="btn-primary mx-auto"
           >
-            Proceed to Partner Routing <ArrowRight size={16} />
+            {t('proceed_to_partners', language)} <ArrowRight size={16} />
           </button>
         </div>
 
         {/* Readiness Items */}
         <div className="card">
-          <h2 className="font-bold text-[#1e3a5f] mb-4">Readiness Breakdown</h2>
+          <h2 className="font-bold text-[#1e3a5f] mb-4">{t('readiness_breakdown', language)}</h2>
 
           {/* Passed */}
           <div className="mb-4">
             <p className="text-xs font-bold text-green-600 uppercase tracking-wider mb-2">
-              ✓ Completed ({score.passedItems.length})
+              ✓ {t('completed_checks', language)} ({score.passedItems.length})
             </p>
             <div className="space-y-1.5">
               {score.passedItems.map((item) => (
@@ -95,7 +110,7 @@ export default function ReadinessScore() {
           {score.failedItems.length > 0 && (
             <div>
               <p className="text-xs font-bold text-red-500 uppercase tracking-wider mb-2">
-                ✗ Still needed ({score.failedItems.length})
+                ✗ {t('incomplete_checks', language)} ({score.failedItems.length})
               </p>
               <div className="space-y-1.5">
                 {score.failedItems.map((item) => (
@@ -114,7 +129,7 @@ export default function ReadinessScore() {
                 ))}
               </div>
               <p className="text-xs text-gray-400 mt-2 text-center">
-                Click any item above to go to the relevant section and complete it.
+                {t('go_complete', language)} →
               </p>
             </div>
           )}
@@ -123,23 +138,18 @@ export default function ReadinessScore() {
 
       {/* What readiness means */}
       <div className="mt-6 grid sm:grid-cols-4 gap-3 text-center">
-        {[
-          { range: '85–100', label: 'Excellent', desc: 'Ready to apply', color: 'bg-green-50 border-green-200 text-green-700' },
-          { range: '65–84', label: 'Good', desc: 'Minor gaps', color: 'bg-blue-50 border-blue-200 text-blue-700' },
-          { range: '45–64', label: 'Fair', desc: 'Several gaps', color: 'bg-amber-50 border-amber-200 text-amber-700' },
-          { range: '0–44', label: 'Needs Work', desc: 'Significant prep needed', color: 'bg-red-50 border-red-200 text-red-700' },
-        ].map((band) => (
+        {bands.map((band) => (
           <div
-            key={band.label}
+            key={band.matchLabel}
             className={cn(
               'p-3 rounded-xl border text-sm font-semibold',
               band.color,
-              score.label === band.label ? 'ring-2 ring-offset-1 ring-current' : ''
+              score.label === band.matchLabel ? 'ring-2 ring-offset-1 ring-current' : ''
             )}
           >
-            <p className="font-bold">{band.label}</p>
+            <p className="font-bold">{t(band.labelKey, language)}</p>
             <p className="text-xs opacity-75">{band.range}</p>
-            <p className="text-xs mt-1">{band.desc}</p>
+            <p className="text-xs mt-1">{band.desc[language] ?? band.desc.en}</p>
           </div>
         ))}
       </div>

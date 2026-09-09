@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Sparkles, Shield, CheckCircle2, Users, TrendingUp, Star } from 'lucide-react';
+import { ArrowRight, Sparkles, Shield, CheckCircle2, Users, TrendingUp, Mic } from 'lucide-react';
+import { useAppStore } from '../hooks/useAppStore';
 
 const FEATURES = [
   { icon: Sparkles, title: 'AI Scheme Matching', description: 'Describe your business; our AI identifies the most relevant government schemes instantly.' },
@@ -7,15 +8,8 @@ const FEATURES = [
   { icon: CheckCircle2, title: 'Document Readiness', description: 'Know exactly which documents you need and track what you already have.' },
   { icon: TrendingUp, title: 'Business Cost Planner', description: 'Calculate startup costs, identify funding gaps, and plan capital requirements.' },
   { icon: Users, title: 'Partner Routing', description: 'Find the nearest bank, NGO, or government office that can process your application.' },
-  { icon: Star, title: 'Application Tracker', description: 'Real-time status updates on every scheme application you have submitted.' },
+  { icon: Mic, title: 'Voice Input', description: 'Speak in English, Hindi, or Marathi — our AI understands your needs.' },
 ];
-
-const DEMO_PROFILE = {
-  businessType: 'Chai Stall',
-  location: 'Mumbai, Maharashtra',
-  capital: '₹40,000',
-  monthlyIncome: '₹25,000',
-};
 
 const STATS = [
   { value: '47+', label: 'Government Schemes' },
@@ -24,16 +18,26 @@ const STATS = [
   { value: '89%', label: 'Approval Rate' },
 ];
 
+const HOW_IT_WORKS = [
+  { step: '01', title: 'Tell Us About You', description: 'Share your business idea, location, income and background by voice or text.' },
+  { step: '02', title: 'AI + Kaggle Discovery', description: 'AI matches your profile against Kaggle\'s scheme dataset + verified government rules.' },
+  { step: '03', title: 'Prepare & Apply', description: 'Follow our checklist to gather documents and connect with the right partner.' },
+  { step: '04', title: 'Partner Connects You', description: 'Banks, NGOs, and government offices process your actual application.' },
+];
+
 export default function Landing() {
   const navigate = useNavigate();
-
-  const handleDemo = () => {
-    navigate('/dashboard');
-  };
+  const { currentUser } = useAppStore();
 
   const handleStart = () => {
-    navigate('/intake');
+    if (currentUser) {
+      navigate('/dashboard');
+    } else {
+      navigate('/register');
+    }
   };
+
+  const handleLogin = () => navigate('/login');
 
   return (
     <div className="min-h-screen bg-white">
@@ -54,12 +58,20 @@ export default function Landing() {
             <a href="#schemes" className="hover:text-[#1e3a5f] transition-colors">Schemes</a>
           </nav>
           <div className="flex items-center gap-3">
-            <button onClick={handleDemo} className="hidden sm:block text-sm font-medium text-[#1e3a5f] hover:underline">
-              Try Demo
-            </button>
-            <button onClick={handleStart} className="btn-primary text-sm py-2 px-4">
-              Get Started
-            </button>
+            {currentUser ? (
+              <button onClick={() => navigate('/dashboard')} className="btn-primary text-sm py-2 px-4">
+                Dashboard →
+              </button>
+            ) : (
+              <>
+                <button onClick={handleLogin} className="hidden sm:block text-sm font-medium text-[#1e3a5f] hover:underline">
+                  Login
+                </button>
+                <button onClick={handleStart} className="btn-primary text-sm py-2 px-4">
+                  Get Started
+                </button>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -70,65 +82,42 @@ export default function Landing() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-400 rounded-full filter blur-3xl translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400 rounded-full filter blur-3xl -translate-x-1/2 translate-y-1/2" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                SIH 2026 · AI for Social Good
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                Your Business.<br />
-                Your Schemes.<br />
-                <span className="text-orange-400">One Smart Guide.</span>
-              </h1>
-              <p className="text-lg text-white/75 mb-8 max-w-lg leading-relaxed">
-                YojanaMitra helps marginalized entrepreneurs discover the right government schemes, check real eligibility, prepare documents, and track every application — all in one place.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <button onClick={handleStart} className="inline-flex items-center gap-2 px-7 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg transition-colors text-base">
-                  Start Your Journey <ArrowRight size={18} />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+              Your Business.<br />
+              Your Schemes.<br />
+              <span className="text-orange-400">One Smart Guide.</span>
+            </h1>
+            <p className="text-lg text-white/75 mb-10 max-w-2xl mx-auto leading-relaxed">
+              YojanaMitra helps entrepreneurs discover the right government schemes, check real eligibility,
+              prepare documents, and connect with the right partner — all in one place.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center mb-16">
+              <button onClick={handleStart} className="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg transition-colors text-base">
+                Start Your Journey <ArrowRight size={18} />
+              </button>
+              {!currentUser && (
+                <button onClick={handleLogin} className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold rounded-xl transition-colors text-base">
+                  Login →
                 </button>
-                <button onClick={handleDemo} className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold rounded-xl transition-colors text-base">
-                  Try Demo Profile
-                </button>
-              </div>
+              )}
             </div>
 
-            {/* Demo Card */}
-            <div className="lg:flex justify-end hidden">
-              <div className="bg-white rounded-2xl shadow-2xl p-6 w-80 text-gray-900">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">S</div>
-                  <div>
-                    <p className="text-sm font-semibold">Demo Profile</p>
-                    <p className="text-xs text-gray-400">Auto-filled for you</p>
-                  </div>
-                  <span className="ml-auto text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Demo</span>
+            {/* Trust indicators */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                { icon: '🤖', label: 'AI Profile Extraction', sub: 'Voice & Text' },
+                { icon: '📋', label: 'Verified Eligibility', sub: 'Government Rules' },
+                { icon: '📄', label: 'Document Checklist', sub: 'Scheme-specific' },
+                { icon: '🗺️', label: 'Partner Routing', sub: 'Map & Distance' },
+              ].map(({ icon, label, sub }) => (
+                <div key={label} className="bg-white/8 border border-white/15 rounded-2xl p-4 text-center backdrop-blur-sm">
+                  <p className="text-2xl mb-2">{icon}</p>
+                  <p className="text-sm font-semibold text-white">{label}</p>
+                  <p className="text-xs text-white/50 mt-0.5">{sub}</p>
                 </div>
-                <div className="space-y-2.5 mb-4">
-                  {Object.entries({ 'Business': DEMO_PROFILE.businessType, 'Location': DEMO_PROFILE.location, 'Available Capital': DEMO_PROFILE.capital, 'Est. Monthly Income': DEMO_PROFILE.monthlyIncome }).map(([k, v]) => (
-                    <div key={k} className="flex justify-between text-sm">
-                      <span className="text-gray-400">{k}</span>
-                      <span className="font-medium text-gray-800">{v}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="border-t border-gray-100 pt-4">
-                  <p className="text-xs text-gray-500 mb-2">Matched Schemes</p>
-                  <div className="space-y-1.5">
-                    {['MUDRA Shishu · 88% match', 'PMEGP · 92% match', 'WDC Scheme · 80% match'].map((s) => (
-                      <div key={s} className="flex items-center gap-2 text-xs">
-                        <CheckCircle2 size={13} className="text-green-500 flex-shrink-0" />
-                        <span className="text-gray-700">{s}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button onClick={handleDemo} className="mt-4 w-full py-2.5 bg-[#1e3a5f] text-white text-sm font-semibold rounded-xl hover:bg-[#162640] transition-colors">
-                  View Dashboard →
-                </button>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -175,12 +164,7 @@ export default function Landing() {
             <p className="text-gray-500 max-w-xl mx-auto">A simple, guided flow that takes you from idea to application in minutes.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { step: '01', title: 'Tell Us About You', description: 'Share your business idea, location, income and background.' },
-              { step: '02', title: 'Get Matched', description: 'AI matches your profile against verified government scheme rules.' },
-              { step: '03', title: 'Prepare & Apply', description: 'Follow our checklist to gather documents and submit applications.' },
-              { step: '04', title: 'Track & Receive', description: 'Monitor every application and get notified when funds are disbursed.' },
-            ].map(({ step, title, description }) => (
+            {HOW_IT_WORKS.map(({ step, title, description }) => (
               <div key={step} className="text-center">
                 <div className="w-14 h-14 rounded-2xl bg-orange-50 border-2 border-orange-200 flex items-center justify-center mx-auto mb-4">
                   <span className="text-orange-600 font-extrabold text-lg">{step}</span>
@@ -202,9 +186,11 @@ export default function Landing() {
             <button onClick={handleStart} className="inline-flex items-center gap-2 px-8 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-colors text-base">
               Start Your Journey <ArrowRight size={18} />
             </button>
-            <button onClick={handleDemo} className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold rounded-xl transition-colors text-base">
-              Try Demo First
-            </button>
+            {!currentUser && (
+              <button onClick={handleLogin} className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold rounded-xl transition-colors text-base">
+                Already have an account? Login
+              </button>
+            )}
           </div>
         </div>
       </section>

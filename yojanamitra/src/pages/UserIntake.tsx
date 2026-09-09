@@ -75,7 +75,7 @@ export default function UserIntake() {
               <h2 className="text-lg font-bold text-[#1e3a5f] mb-4">Personal Information</h2>
               <div>
                 <label className="label">Full Name</label>
-                <input className="input" placeholder="e.g., Sunita Devi" value={form.name} onChange={(e) => update('name', e.target.value)} />
+                <input className="input" placeholder="e.g., Rahul Kumar" value={form.name} onChange={(e) => update('name', e.target.value)} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>

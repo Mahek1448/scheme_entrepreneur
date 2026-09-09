@@ -1,37 +1,117 @@
-import type { UserProfile, Application, Document, Partner, AdminStats, Notification } from '../types';
+import type { Application, Document, Partner, AdminStats, Notification } from '../types';
 
-// ─── Demo Profile (Chai Stall, Mumbai) ────────────────────────────────────────
-export const DEMO_PROFILE: UserProfile = {
-  id: 'demo-001',
-  name: 'Sunita Devi',
-  age: 34,
-  gender: 'female',
-  category: 'obc',
-  state: 'Maharashtra',
-  district: 'Mumbai',
-  isUrban: true,
-  pincode: '400001',
-  businessType: 'Chai Stall / Tea Shop',
-  businessStage: 'idea',
-  occupation: 'street_vendor',
-  isStreetVendor: true,
-  monthlyRevenue: 25000,
-  annualFamilyIncome: 180000,
-  availableCapital: 40000,
-  fundingRequirement: 50000,
-  existingLoan: false,
-  previousPMEGPBeneficiary: false,
-  previousMUDRABeneficiary: false,
-  previousSVANidhiBeneficiary: false,
-  hasCIBILDefault: false,
-  aadhaarVerified: true,
-  panAvailable: false,
-  bankAccount: true,
-  casteCertificateAvailable: false,
-  educationLevel: '10th_pass',
-  hasStreetVendorCertificate: false,
-  createdAt: '2026-08-15T10:30:00Z',
-};
+/**
+ * mockData.ts
+ *
+ * NOTE: DEMO_PROFILE (Chai Stall / Sunita) is kept here for reference only.
+ * It is NOT auto-loaded. It is only accessible via `loadDemoProfile()` in useAppStore.
+ * Normal users start with an EMPTY_PROFILE.
+ */
+
+// ─── Partners ────────────────────────────────────────────────────────────────
+// Partners are listed generically — not Mumbai-specific.
+// PartnerRouting.tsx ranks these based on the actual user profile + selected scheme.
+export const SAMPLE_PARTNERS: Partner[] = [
+  {
+    id: 'p1',
+    name: 'State Bank of India – MSME Branch',
+    type: 'bank',
+    description: 'Lead bank for MUDRA and PMEGP disbursals across India. Dedicated MSME desk with trained officers.',
+    services: ['MUDRA Shishu', 'MUDRA Kishor', 'PMEGP', 'SHG Linkage', 'Stand-Up India'],
+    contactPhone: '1800-11-2211',
+    address: 'SBI Main Branch, Fort, Mumbai, Maharashtra 400001',
+    rating: 4.2,
+    languages: ['Hindi', 'English', 'Regional Language'],
+    distance: 1.8,
+    latitude: 18.9322,
+    longitude: 72.8354,
+  },
+  {
+    id: 'p2',
+    name: 'Bank of Maharashtra – Fort Branch',
+    type: 'bank',
+    description: 'Active MUDRA lender with a dedicated street vendor support desk. Quick processing within 7 working days.',
+    services: ['MUDRA Loan', 'PM SVANidhi', 'CGTMSE', 'PMEGP', 'Small Business Loan'],
+    contactPhone: '1800-233-4526',
+    address: 'Bank of Maharashtra, Fort, Mumbai, Maharashtra 400001',
+    rating: 4.6,
+    languages: ['Hindi', 'Marathi', 'English'],
+    distance: 0.9,
+    latitude: 18.9290,
+    longitude: 72.8344,
+  },
+  {
+    id: 'p3',
+    name: 'NGO Support – Udyam Sahayata',
+    type: 'ngo',
+    description: 'NGO specialising in entrepreneur support — free mentorship, application assistance, and training programs for SC/ST/OBC.',
+    services: ['Application Guidance', 'Business Training', 'PM SVANidhi Help', 'Document Preparation', 'Financial Literacy'],
+    contactPhone: '9800123456',
+    contactEmail: 'help@udyamsahayata.org',
+    address: 'Bandra West, Mumbai, Maharashtra 400050',
+    rating: 3.8,
+    languages: ['Hindi', 'English', 'Marathi', 'Tamil', 'Bengali'],
+    distance: 2.4,
+    latitude: 19.0596,
+    longitude: 72.8295,
+  },
+  {
+    id: 'p4',
+    name: 'DIC Mumbai – District Industries Centre',
+    type: 'government_office',
+    description: 'Official body that processes PMEGP applications. Also issues MSME / Udyam registrations and coordinates EDP training.',
+    services: ['PMEGP Processing', 'MSME Udyam Registration', 'EDP Training', 'PM-DAKSH Training Referral', 'MSME Support'],
+    contactPhone: '022-22625333',
+    address: 'DIC Office, Churchgate, Mumbai, Maharashtra 400020',
+    rating: 4.0,
+    languages: ['Hindi', 'English', 'Marathi'],
+    distance: 1.8,
+    latitude: 18.9367,
+    longitude: 72.8296,
+  },
+  {
+    id: 'p5',
+    name: 'PM SVANidhi Application Portal',
+    type: 'online_portal',
+    description: 'Official government portal for street vendors to apply for PM SVANidhi working capital loan of ₹10,000–₹50,000.',
+    services: ['PM SVANidhi Loan', 'Vendor Registration Status Check', 'Digital Payment Incentive'],
+    website: 'https://pmsvanidhi.mohua.gov.in',
+    rating: 4.3,
+    languages: ['Hindi', 'English', 'Marathi', 'Tamil', 'Telugu'],
+    distance: 0,
+    latitude: 18.9388,
+    longitude: 72.8354,
+  },
+  {
+    id: 'p6',
+    name: 'SBI Colaba Branch',
+    type: 'bank',
+    description: 'Provides MSME loans, MUDRA loans and support for small businesses and entrepreneurs in the Colaba area.',
+    services: ['MUDRA Loan', 'PMEGP', 'SHG Linkage'],
+    contactPhone: '022-22023432',
+    address: 'SBI Colaba, Colaba Causeway, Mumbai, Maharashtra 400005',
+    rating: 4.2,
+    languages: ['Hindi', 'English', 'Marathi'],
+    distance: 1.7,
+    latitude: 18.9068,
+    longitude: 72.8147,
+  },
+];
+
+// ─── Sample Documents ─────────────────────────────────────────────────────────
+// These are generic documents — not specific to Sunita/Chai Stall.
+// DocumentsReadiness.tsx builds the list dynamically from the selected scheme.
+export const SAMPLE_DOCUMENTS: Document[] = [
+  { id: 'doc-1', name: 'Aadhaar Card', description: '12-digit unique identification number', status: 'missing', required: true },
+  { id: 'doc-2', name: 'PAN Card', description: 'Permanent Account Number for income tax', status: 'missing', required: true },
+  { id: 'doc-3', name: 'Bank Passbook / Statement', description: 'Last 6 months bank account statement', status: 'missing', required: true },
+  { id: 'doc-4', name: 'Passport Photo', description: 'Recent passport-size photograph (3 copies)', status: 'missing', required: true },
+  { id: 'doc-5', name: 'Residence Proof', description: 'Electricity bill / rent agreement / voter ID', status: 'missing', required: true },
+  { id: 'doc-6', name: 'Caste / Category Certificate', description: 'Certificate from competent authority — needed for category benefits', status: 'missing', required: false },
+  { id: 'doc-7', name: 'Business Plan / Project Report', description: 'Detailed plan describing your business for scheme applications', status: 'missing', required: true },
+  { id: 'doc-8', name: 'Income Certificate', description: 'Annual family income certificate', status: 'missing', required: false },
+  { id: 'doc-9', name: 'Certificate of Vending (CoV)', description: 'Street vendor certificate issued by ULB — required for PM SVANidhi', status: 'missing', required: false },
+];
 
 // ─── Sample Applications ──────────────────────────────────────────────────────
 export const SAMPLE_APPLICATIONS: Application[] = [
@@ -42,7 +122,7 @@ export const SAMPLE_APPLICATIONS: Application[] = [
     status: 'under_review',
     appliedAt: '2026-08-20T09:00:00Z',
     lastUpdated: '2026-09-01T14:30:00Z',
-    referenceNumber: 'MUDRA/MH/2026/089234',
+    referenceNumber: 'MUDRA/2026/089234',
     amount: 50000,
     steps: [
       { id: 's1', title: 'Application Submitted', description: 'Your application was received by the bank.', completedAt: '2026-08-20T09:00:00Z', status: 'completed' },
@@ -51,82 +131,12 @@ export const SAMPLE_APPLICATIONS: Application[] = [
       { id: 's4', title: 'Sanction & Disbursement', description: 'Loan will be sanctioned and funds disbursed to your account.', status: 'pending' },
     ],
   },
-  {
-    id: 'app-002',
-    schemeId: 'pmegp',
-    schemeName: 'PMEGP',
-    status: 'draft',
-    appliedAt: '2026-09-03T16:00:00Z',
-    lastUpdated: '2026-09-03T16:00:00Z',
-    referenceNumber: 'PMEGP/MH/2026/DRAFT',
-    steps: [
-      { id: 's1', title: 'Application Started', description: 'You started filling the PMEGP application.', completedAt: '2026-09-03T16:00:00Z', status: 'completed' },
-      { id: 's2', title: 'Submit to KVIC', description: 'Submit your complete application to the nearest KVIC office.', status: 'current' },
-      { id: 's3', title: 'Interview & EDP Training', description: 'Attend Entrepreneur Development Programme (2-week residential).', status: 'pending' },
-      { id: 's4', title: 'Bank Linkage', description: 'Application forwarded to bank for loan processing.', status: 'pending' },
-      { id: 's5', title: 'Subsidy Released', description: 'Subsidy credited directly to your loan account.', status: 'pending' },
-    ],
-  },
-];
-
-// ─── Sample Documents ─────────────────────────────────────────────────────────
-export const SAMPLE_DOCUMENTS: Document[] = [
-  { id: 'doc-1', name: 'Aadhaar Card', description: '12-digit unique identification number', status: 'available', required: true, uploadedAt: '2026-08-10', fileSize: '245 KB' },
-  { id: 'doc-2', name: 'PAN Card', description: 'Permanent Account Number for income tax', status: 'missing', required: true },
-  { id: 'doc-3', name: 'Bank Passbook / Statement', description: 'Last 6 months bank account statement', status: 'available', required: true, uploadedAt: '2026-08-12', fileSize: '1.2 MB' },
-  { id: 'doc-4', name: 'Passport Photo', description: 'Recent passport-size photograph (3 copies)', status: 'available', required: true, uploadedAt: '2026-08-10', fileSize: '120 KB' },
-  { id: 'doc-5', name: 'Residence Proof', description: 'Electricity bill / rent agreement / voter ID', status: 'available', required: true, uploadedAt: '2026-08-11', fileSize: '380 KB' },
-  { id: 'doc-6', name: 'Caste / OBC Certificate', description: 'OBC certificate from competent authority — needed for category benefits', status: 'missing', required: false },
-  { id: 'doc-7', name: 'Business Plan / Project Report', description: 'Detailed plan for PMEGP application', status: 'missing', required: true },
-  { id: 'doc-8', name: 'Income Certificate', description: 'Annual family income certificate', status: 'available', required: false, uploadedAt: '2026-08-13', fileSize: '95 KB' },
-  { id: 'doc-9', name: 'Certificate of Vending (CoV)', description: 'Street vendor certificate issued by ULB — required for PM SVANidhi', status: 'missing', required: false },
-];
-
-// ─── Sample Partners ──────────────────────────────────────────────────────────
-export const SAMPLE_PARTNERS: Partner[] = [
-  {
-    id: 'p1', name: 'State Bank of India – Colaba Branch', type: 'bank',
-    description: 'Lead bank for MUDRA and PMEGP disbursals in Mumbai Central district.',
-    services: ['MUDRA Shishu', 'MUDRA Kishor', 'PMEGP', 'SHG Linkage', 'Jan Dhan'],
-    contactPhone: '022-22026981', address: 'Colaba, Mumbai 400005',
-    rating: 4.2, languages: ['Hindi', 'Marathi', 'English'], distance: 1.8,
-  },
-  {
-    id: 'p2', name: 'Bank of Maharashtra – Fort Branch', type: 'bank',
-    description: 'Active MUDRA lender with dedicated MSME desk and quick processing.',
-    services: ['MUDRA Loan', 'Stand-Up India', 'CGTMSE', 'PM SVANidhi'],
-    contactPhone: '022-22694020', address: 'Fort, Mumbai 400001',
-    rating: 4.0, languages: ['Hindi', 'Marathi'], distance: 0.9,
-  },
-  {
-    id: 'p3', name: 'Stree Shakti Udyog Sangathan', type: 'ngo',
-    description: 'NGO specialising in women entrepreneur support – free mentorship, application assistance.',
-    services: ['Application Guidance', 'Business Training', 'PM SVANidhi Help', 'Document Prep'],
-    contactPhone: '9820123456', contactEmail: 'info@ssusmumbai.org',
-    address: 'Dharavi, Mumbai 400017',
-    rating: 4.7, languages: ['Hindi', 'Marathi', 'Urdu'], distance: 3.2,
-  },
-  {
-    id: 'p4', name: 'District Industries Centre (DIC) Mumbai', type: 'government_office',
-    description: 'Processes PMEGP applications and issues MSME / Udyam registrations.',
-    services: ['PMEGP Processing', 'MSME Udyam Registration', 'EDP Training Coordination'],
-    contactPhone: '022-23075041', address: 'Lower Parel, Mumbai 400013',
-    rating: 3.8, languages: ['Hindi', 'Marathi', 'English'], distance: 5.5,
-  },
-  {
-    id: 'p5', name: 'PM SVANidhi Application Portal', type: 'online_portal',
-    description: 'Official portal for street vendors to apply for PM SVANidhi working capital loan.',
-    services: ['PM SVANidhi Loan', 'Vendor Registration Status Check'],
-    website: 'https://pmsvanidhi.mohua.gov.in',
-    rating: 4.3, languages: ['Hindi', 'English', 'Marathi'], distance: 0,
-  },
 ];
 
 // ─── Notifications ─────────────────────────────────────────────────────────────
 export const SAMPLE_NOTIFICATIONS: Notification[] = [
-  { id: 'n1', title: 'MUDRA Application Update', message: 'Your MUDRA Shishu application is under credit review. Expected decision in 5-7 days.', type: 'info', read: false, createdAt: '2026-09-01T14:30:00Z' },
-  { id: 'n2', title: 'Missing Document Alert', message: 'PAN Card and Certificate of Vending are required for your pending applications.', type: 'warning', read: false, createdAt: '2026-09-02T09:00:00Z' },
-  { id: 'n3', title: 'PM SVANidhi Eligible', message: 'Based on your street vendor status, you may qualify for PM SVANidhi ₹10,000 loan. Apply now.', type: 'success', read: true, createdAt: '2026-08-28T10:00:00Z' },
+  { id: 'n1', title: 'Scheme Match Found', message: 'Based on your profile, MUDRA Shishu could be a great fit. Complete your eligibility check.', type: 'info', read: false, createdAt: new Date().toISOString() },
+  { id: 'n2', title: 'Complete Your Profile', message: 'Fill in all required profile fields to get accurate scheme recommendations.', type: 'warning', read: false, createdAt: new Date().toISOString() },
 ];
 
 // ─── Admin Stats ──────────────────────────────────────────────────────────────
