@@ -150,6 +150,28 @@ type TranslationKey =
   | 'voice_start'
   | 'voice_stop'
   | 'voice_unsupported'
+  // Voice output (TTS)
+  | 'voice_output_listen'
+  | 'voice_output_speaking'
+  | 'voice_output_stop'
+  // YouTube Tutorial
+  | 'how_to_fill_form'
+  | 'watch_tutorial'
+  | 'form_tutorial_desc'
+  // Profile Confirmation
+  | 'demo_profile_loaded'
+  | 'profile_review_title'
+  | 'profile_review_subtitle'
+  | 'quick_eligibility_toggles'
+  | 'street_vendor_label'
+  | 'aadhaar_available'
+  | 'pan_available'
+  | 'bank_account_label'
+  | 'existing_loan_label'
+  | 'cibil_default_label'
+  | 'prev_pmegp_label'
+  | 'caste_cert_label'
+  | 'street_vendor_cert_label'
   // EMI
   | 'emi_title'
   | 'emi_monthly'
@@ -368,6 +390,28 @@ const EN: Translations = {
   voice_stop: 'Stop',
   voice_unsupported: 'Voice input is not supported in this browser. Please use text input.',
 
+  voice_output_listen: '🔊 Listen',
+  voice_output_speaking: '🔊 Speaking…',
+  voice_output_stop: '⏹ Stop',
+
+  how_to_fill_form: 'How to Fill the Form',
+  watch_tutorial: 'Watch Tutorial',
+  form_tutorial_desc: 'Step-by-step video guide on how to fill and submit the application.',
+
+  demo_profile_loaded: 'Demo profile loaded for preview',
+  profile_review_title: "Here's what we understood",
+  profile_review_subtitle: 'Review and edit any field before we find your schemes.',
+  quick_eligibility_toggles: 'Quick Eligibility Toggles',
+  street_vendor_label: 'Street Vendor',
+  aadhaar_available: 'Aadhaar Available',
+  pan_available: 'PAN Available',
+  bank_account_label: 'Bank Account',
+  existing_loan_label: 'Has Existing Loan',
+  cibil_default_label: 'CIBIL Default',
+  prev_pmegp_label: 'Previous PMEGP Beneficiary',
+  caste_cert_label: 'Caste Certificate Available',
+  street_vendor_cert_label: 'Street Vendor Certificate (CoV)',
+
   emi_title: 'EMI & Affordability Calculator',
   emi_monthly: 'Monthly EMI',
   emi_total_interest: 'Total Interest',
@@ -585,6 +629,28 @@ const HI: Translations = {
   voice_stop: 'रोकें',
   voice_unsupported: 'इस ब्राउज़र में वॉइस इनपुट समर्थित नहीं है। कृपया टेक्स्ट इनपुट का उपयोग करें।',
 
+  voice_output_listen: '🔊 सुनें',
+  voice_output_speaking: '🔊 बोल रहे हैं…',
+  voice_output_stop: '⏹ रोकें',
+
+  how_to_fill_form: 'फॉर्म कैसे भरें',
+  watch_tutorial: 'ट्यूटोरियल देखें',
+  form_tutorial_desc: 'आवेदन भरने और जमा करने का चरण-दर-चरण वीडियो गाइड।',
+
+  demo_profile_loaded: 'प्रीव्यू के लिए डेमो प्रोफ़ाइल लोड की गई',
+  profile_review_title: 'हमने यह समझा',
+  profile_review_subtitle: 'अपनी योजनाएं खोजने से पहले किसी भी फ़ील्ड की समीक्षा करें और संपादित करें।',
+  quick_eligibility_toggles: 'त्वरित पात्रता टॉगल',
+  street_vendor_label: 'स्ट्रीट वेंडर',
+  aadhaar_available: 'आधार उपलब्ध',
+  pan_available: 'PAN उपलब्ध',
+  bank_account_label: 'बैंक खाता',
+  existing_loan_label: 'मौजूदा ऋण है',
+  cibil_default_label: 'CIBIL डिफ़ॉल्ट',
+  prev_pmegp_label: 'पूर्व PMEGP लाभार्थी',
+  caste_cert_label: 'जाति प्रमाणपत्र उपलब्ध',
+  street_vendor_cert_label: 'स्ट्रीट वेंडर प्रमाणपत्र (CoV)',
+
   emi_title: 'EMI और सामर्थ्य कैलकुलेटर',
   emi_monthly: 'मासिक EMI',
   emi_total_interest: 'कुल ब्याज',
@@ -801,6 +867,28 @@ const MR: Translations = {
   voice_start: 'बोलणे सुरू करा',
   voice_stop: 'थांबवा',
   voice_unsupported: 'या ब्राउझरमध्ये व्हॉइस इनपुट समर्थित नाही. कृपया टेक्स्ट इनपुट वापरा.',
+
+  voice_output_listen: '🔊 ऐका',
+  voice_output_speaking: '🔊 बोलत आहे…',
+  voice_output_stop: '⏹ थांबवा',
+
+  how_to_fill_form: 'फॉर्म कसा भरावा',
+  watch_tutorial: 'ट्यूटोरियल पहा',
+  form_tutorial_desc: 'अर्ज भरण्यासाठी आणि सबमिट करण्यासाठी पायरी-पायरी व्हिडिओ मार्गदर्शक.',
+
+  demo_profile_loaded: 'पूर्वावलोकनासाठी डेमो प्रोफाइल लोड केली',
+  profile_review_title: 'आम्हाला हे समजले',
+  profile_review_subtitle: 'योजना शोधण्यापूर्वी कोणतेही फील्ड पुनरावलोकन करा आणि संपादित करा.',
+  quick_eligibility_toggles: 'त्वरित पात्रता टॉगल',
+  street_vendor_label: 'रस्त्यावरील विक्रेता',
+  aadhaar_available: 'आधार उपलब्ध',
+  pan_available: 'PAN उपलब्ध',
+  bank_account_label: 'बँक खाते',
+  existing_loan_label: 'विद्यमान कर्ज आहे',
+  cibil_default_label: 'CIBIL डिफॉल्ट',
+  prev_pmegp_label: 'मागील PMEGP लाभार्थी',
+  caste_cert_label: 'जात प्रमाणपत्र उपलब्ध',
+  street_vendor_cert_label: 'रस्त्यावरील विक्रेता प्रमाणपत्र (CoV)',
 
   emi_title: 'EMI आणि परवडण्याची क्षमता कॅल्क्युलेटर',
   emi_monthly: 'मासिक EMI',

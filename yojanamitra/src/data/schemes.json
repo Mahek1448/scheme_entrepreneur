@@ -70,6 +70,7 @@
       "processingTime": "30-45 working days"
     },
     "successRate": 72,
+    "formTutorialUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "tags": ["manufacturing", "service", "subsidy", "kvic", "self-employment", "startup", "rural", "urban"]
   },
   {
@@ -129,6 +130,7 @@
       "processingTime": "7-14 working days"
     },
     "successRate": 85,
+    "formTutorialUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "tags": ["micro-loan", "no-collateral", "quick", "startup", "street-vendor", "small-business", "working-capital"]
   },
   {
@@ -186,6 +188,7 @@
       "processingTime": "10-21 working days"
     },
     "successRate": 78,
+    "formTutorialUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "tags": ["growth-loan", "expansion", "working-capital", "equipment", "growing-business"]
   },
   {
@@ -243,6 +246,7 @@
       "processingTime": "30 working days from application"
     },
     "successRate": 80,
+    "formTutorialUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "tags": ["street-vendor", "urban", "micro-loan", "no-collateral", "digital-incentive", "working-capital", "covid-relief"]
   },
   {
@@ -301,6 +305,7 @@
       "processingTime": "Batch enrolment — 15-30 days"
     },
     "successRate": 88,
+    "formTutorialUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "tags": ["training", "skill-development", "sc", "obc", "free", "stipend", "placement", "marginalized"]
   }
 ]

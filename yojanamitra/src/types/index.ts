@@ -128,6 +128,7 @@ export interface Scheme {
   requiredDocuments: string[];
   applicationRoute: SchemeApplicationRoute;
   successRate: number;
+  formTutorialUrl?: string;
   tags: string[];
 }
 

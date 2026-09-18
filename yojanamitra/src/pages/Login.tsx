@@ -40,7 +40,28 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f1c30] via-[#1e3a5f] to-[#16345a] flex items-center justify-center px-4">
+    <div
+      className="min-h-screen flex items-center justify-center px-4"
+      style={{
+        backgroundImage: 'url(/login-background.jpeg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        position: 'relative',
+      }}
+    >
+      {/* Subtle overlay so the white card stays readable */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+          zIndex: 0,
+        }}
+        aria-hidden="true"
+      />
+      {/* Scoped wrapper that sits above the overlay */}
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'center' }}>
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -134,6 +155,7 @@ export default function Login() {
         <p className="text-center text-white/40 text-xs mt-4">
           🔒 Your data is stored locally in this browser only.
         </p>
+      </div>
       </div>
     </div>
   );

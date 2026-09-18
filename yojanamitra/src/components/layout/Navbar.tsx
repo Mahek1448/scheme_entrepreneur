@@ -1,20 +1,26 @@
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Menu, X, Globe, ChevronDown, User, LogOut, Mic } from 'lucide-react';
+import { Menu, X, Globe, ChevronDown, User, LogOut, Mic, Check } from 'lucide-react';
 import { useAppStore } from '../../hooks/useAppStore';
-import { t, LANGUAGE_LABELS, type Language } from '../../services/i18n';
+import { t, type Language } from '../../services/i18n';
 import { cn } from '../../utils';
 
 const NAV_LINKS = [
   { to: '/dashboard', getLabel: (lang: Language) => t('nav_dashboard', lang) },
-  { to: '/schemes', getLabel: (lang: Language) => t('nav_schemes', lang) },
-  { to: '/planner', getLabel: (lang: Language) => t('nav_planner', lang) },
+  { to: '/schemes',   getLabel: (lang: Language) => t('nav_schemes', lang) },
+  { to: '/planner',   getLabel: (lang: Language) => t('nav_planner', lang) },
   { to: '/documents', getLabel: (lang: Language) => t('nav_documents', lang) },
   { to: '/readiness', getLabel: (lang: Language) => t('nav_readiness', lang) },
-  { to: '/partners', getLabel: (lang: Language) => t('nav_partners', lang) },
+  { to: '/partners',  getLabel: (lang: Language) => t('nav_partners', lang) },
 ];
 
-const LANGUAGES: Language[] = ['en', 'hi', 'mr'];
+// All three languages visible in selector.
+// Marathi is shown but falls back to English gracefully (MR translations exist in i18n.ts).
+const LANGUAGES: { code: Language; label: string; native: string }[] = [
+  { code: 'en', label: 'English',  native: 'English' },
+  { code: 'hi', label: 'Hindi',    native: 'हिन्दी' },
+  { code: 'mr', label: 'Marathi',  native: 'मराठी' },
+];
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -31,10 +37,12 @@ export default function Navbar() {
   };
 
   const displayName = currentUser?.name.split(' ')[0] ?? '';
+  const currentLang = LANGUAGES.find(l => l.code === language) ?? LANGUAGES[0];
 
   return (
     <header className="sticky top-0 z-50 bg-[#1e3a5f] shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center gap-2 text-white font-extrabold text-lg tracking-tight">
           <span className="text-orange-400">YM</span>
@@ -61,6 +69,7 @@ export default function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
+
           {/* Talk to YojanaMitra (Desktop) */}
           <button
             onClick={() => navigate('/intake')}
@@ -70,31 +79,43 @@ export default function Navbar() {
             {t('talk_to_yojanamitra', language)}
           </button>
 
-          {/* Language Switcher */}
+          {/* Language Switcher — polished dropdown */}
           <div className="relative">
             <button
               onClick={() => { setLangOpen(!langOpen); setUserOpen(false); }}
-              className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 text-xs font-medium transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 text-xs font-medium transition-colors border border-white/0 hover:border-white/10"
             >
-              <Globe size={13} />
-              {LANGUAGE_LABELS[language]}
-              <ChevronDown size={11} />
+              <Globe size={13} className="text-white/60" />
+              <span>{currentLang.native}</span>
+              <ChevronDown size={11} className={cn('transition-transform duration-200', langOpen && 'rotate-180')} />
             </button>
+
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 min-w-32">
-                {LANGUAGES.map((lang) => (
-                  <button
-                    key={lang}
-                    onClick={() => { setLanguage(lang); setLangOpen(false); }}
-                    className={cn(
-                      'w-full text-left px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50',
-                      language === lang ? 'text-[#1e3a5f] bg-indigo-50' : 'text-gray-700'
-                    )}
-                  >
-                    {LANGUAGE_LABELS[lang]}
-                  </button>
-                ))}
-              </div>
+              <>
+                {/* Backdrop */}
+                <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
+                {/* Dropdown */}
+                <div className="absolute right-0 top-full mt-1.5 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 w-40">
+                  <div className="px-3 py-2 border-b border-gray-50">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                      {language === 'hi' ? 'भाषा चुनें' : 'Select Language'}
+                    </p>
+                  </div>
+                  {LANGUAGES.map(({ code, native }) => (
+                    <button
+                      key={code}
+                      onClick={() => { setLanguage(code); setLangOpen(false); }}
+                      className={cn(
+                        'w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50',
+                        language === code ? 'text-[#1e3a5f] bg-blue-50/60' : 'text-gray-700'
+                      )}
+                    >
+                      <span>{native}</span>
+                      {language === code && <Check size={13} className="text-[#1e3a5f]" />}
+                    </button>
+                  ))}
+                </div>
+              </>
             )}
           </div>
 
@@ -110,19 +131,22 @@ export default function Navbar() {
                 <ChevronDown size={11} />
               </button>
               {userOpen && (
-                <div className="absolute right-0 top-full mt-1 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 min-w-40">
-                  <div className="px-4 py-3 border-b border-gray-100">
-                    <p className="text-sm font-semibold text-gray-900 truncate">{currentUser.name}</p>
-                    <p className="text-xs text-gray-500 truncate">{currentUser.email}</p>
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setUserOpen(false)} />
+                  <div className="absolute right-0 top-full mt-1 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 min-w-44">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-900 truncate">{currentUser.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{currentUser.email}</p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+                    >
+                      <LogOut size={14} />
+                      {t('logout', language)}
+                    </button>
                   </div>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
-                  >
-                    <LogOut size={14} />
-                    {t('logout', language)}
-                  </button>
-                </div>
+                </>
               )}
             </div>
           ) : (
@@ -135,7 +159,7 @@ export default function Navbar() {
             </button>
           )}
 
-          {/* Mobile menu */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden text-white p-1.5 hover:bg-white/10 rounded-lg"
@@ -173,19 +197,27 @@ export default function Navbar() {
             {t('talk_to_yojanamitra', language)}
           </button>
 
-          <div className="border-t border-white/10 pt-3 flex gap-1">
-            {LANGUAGES.map((lang) => (
-              <button
-                key={lang}
-                onClick={() => { setLanguage(lang); setMenuOpen(false); }}
-                className={cn(
-                  'px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors',
-                  language === lang ? 'bg-white text-[#1e3a5f]' : 'text-white/70 hover:bg-white/10'
-                )}
-              >
-                {LANGUAGE_LABELS[lang]}
-              </button>
-            ))}
+          {/* Mobile language switcher — show all 3 */}
+          <div className="border-t border-white/10 pt-3">
+            <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2 px-1">
+              {language === 'hi' ? 'भाषा' : 'Language'}
+            </p>
+            <div className="flex gap-1.5 flex-wrap">
+              {LANGUAGES.map(({ code, native }) => (
+                <button
+                  key={code}
+                  onClick={() => { setLanguage(code); setMenuOpen(false); }}
+                  className={cn(
+                    'px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors',
+                    language === code
+                      ? 'bg-white text-[#1e3a5f]'
+                      : 'text-white/70 hover:bg-white/10 border border-white/10'
+                  )}
+                >
+                  {native}
+                </button>
+              ))}
+            </div>
           </div>
 
           {currentUser && (

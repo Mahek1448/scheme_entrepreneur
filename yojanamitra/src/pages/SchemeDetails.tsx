@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, ExternalLink, Phone, CheckCircle2, XCircle, AlertCircle,
-  Clock, TrendingUp, DollarSign, BookOpen, FileText, Info, MapPin,
+  Clock, TrendingUp, DollarSign, BookOpen, FileText, Info, MapPin, PlayCircle,
 } from 'lucide-react';
 import { useAppStore } from '../hooks/useAppStore';
 import { useRecommendations } from '../hooks/useRecommendations';
@@ -44,6 +44,9 @@ const LABELS = {
   missingInfo:      { en: '⚠ Missing Info', hi: '⚠ जानकारी गायब', mr: '⚠ माहिती गहाळ' },
   schemeNotFound:   { en: 'Scheme not found.', hi: 'योजना नहीं मिली।', mr: 'योजना सापडली नाही.' },
   backToSchemesBtn: { en: '← Back to Schemes', hi: '← योजनाओं पर वापस', mr: '← योजनांकडे परत' },
+  howToFillForm:    { en: 'How to Fill the Form', hi: 'फॉर्म कैसे भरें', mr: 'फॉर्म कसा भरावा' },
+  watchTutorial:    { en: 'Watch Tutorial', hi: 'ट्यूटोरियल देखें', mr: 'ट्यूटोरियल पहा' },
+  formTutorialDesc: { en: 'Step-by-step video guide on how to fill and submit the application.', hi: 'आवेदन भरने और जमा करने का चरण-दर-चरण वीडियो गाइड।', mr: 'अर्ज भरण्यासाठी आणि सबमिट करण्यासाठी पायरी-पायरी व्हिडिओ मार्गदर्शक.' },
   breakdownLabels: {
     businessCompatibility: { en: 'Business Fit',       hi: 'व्यवसाय फिट',    mr: 'व्यवसाय जुळणी' },
     fundingCompatibility:   { en: 'Funding Match',      hi: 'फंडिंग मिलान',   mr: 'निधी जुळणी' },
@@ -341,6 +344,31 @@ export default function SchemeDetails() {
               >
                 {L('findPartners', language)}
               </button>
+
+              {/* YouTube Tutorial Card — shown only if URL exists */}
+              {scheme.formTutorialUrl && (
+                <div className="mt-2 p-4 bg-red-50 border border-red-100 rounded-xl">
+                  <div className="flex items-center gap-2 mb-2">
+                    <PlayCircle size={18} className="text-red-600 flex-shrink-0" />
+                    <span className="font-bold text-red-700 text-sm">
+                      {L('howToFillForm', language)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-red-600 mb-3 leading-relaxed">
+                    {L('formTutorialDesc', language)}
+                  </p>
+                  <a
+                    href={scheme.formTutorialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 w-full px-4 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors justify-center"
+                  >
+                    <PlayCircle size={15} />
+                    {L('watchTutorial', language)}
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 

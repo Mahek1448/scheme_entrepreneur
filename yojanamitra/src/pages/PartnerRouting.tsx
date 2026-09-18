@@ -428,7 +428,7 @@ export default function PartnerRouting() {
       <div className="grid lg:grid-cols-[1fr_380px] gap-5 items-start">
 
         {/* ─── MAP ──────────────────────────────────────────────────────────── */}
-        <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-md" style={{ height: 520 }}>
+        <div className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-md" style={{ height: 'clamp(320px, 50vw, 520px)' }}>
           <MapContainer
             center={mapCenter}
             zoom={DEFAULT_ZOOM}

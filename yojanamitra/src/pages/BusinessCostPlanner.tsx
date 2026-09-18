@@ -136,7 +136,7 @@ function EMICalculator({ loanAmount, language }: { loanAmount: number; language:
 
       {showDetail && (
         <>
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             <div>
               <label className="label">{t('emi_loan_amount', language as 'en')}</label>
               <input className="input text-sm" type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} />
@@ -151,7 +151,7 @@ function EMICalculator({ loanAmount, language }: { loanAmount: number; language:
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="bg-[#1e3a5f] rounded-xl p-3 text-center text-white">
               <p className="text-xs opacity-70">{t('emi_monthly', language as 'en')}</p>
               <p className="text-xl font-extrabold mt-0.5">{formatCurrency(Math.round(emi))}</p>
