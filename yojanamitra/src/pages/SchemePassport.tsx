@@ -306,7 +306,7 @@ export default function SchemePassport() {
         <div>
           <p className="text-white/60 text-xs font-medium mb-0.5">{getActiveProfileLabel(language)}</p>
           <p className="font-bold text-base">
-            {profile.name || '—'}{profile.businessType ? ` · ${profile.businessType}` : ''}
+            {profile.name }{profile.businessType ? `  ${profile.businessType}` : ''}
           </p>
           <p className="text-white/70 text-sm">
             {[profile.district, profile.state].filter(Boolean).join(', ')}

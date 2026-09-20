@@ -3,12 +3,13 @@
  * ALL user-facing strings are translated. Language persists across pages.
  */
 
-export type Language = 'en' | 'hi' | 'mr';
+export type Language = 'en' | 'hi' | 'mr' | 'gu';
 
 export const LANGUAGE_LABELS: Record<Language, string> = {
   en: 'English',
   hi: 'हिंदी',
   mr: 'मराठी',
+  gu: 'ગુજરાતી',
 };
 
 type TranslationKey =
@@ -219,6 +220,7 @@ type TranslationKey =
   | 'all_status'
   | 'funding_label'
   | 'success_rate'
+  | 'max_label'
   | 'processing_time'
   | 'why_matches_you'
   | 'missing_requirements'
@@ -248,8 +250,8 @@ type TranslationKey =
   | 'clear'
   | 'schemes_discovered'
   | 'location_active'
-  | 'location_denied';
-
+  | 'location_denied'
+  | 'top_pick';
 type Translations = Record<TranslationKey, string>;
 
 const EN: Translations = {
@@ -259,7 +261,7 @@ const EN: Translations = {
   hero_subtitle: 'Describe your business in your own words — we\'ll find the right government schemes for you.',
   start_journey: 'Start Your Journey',
   try_demo: 'Try Demo',
-
+  top_pick: '✦ #1 Pick',
   login: 'Login',
   register: 'Register',
   logout: 'Logout',
@@ -275,7 +277,7 @@ const EN: Translations = {
   no_account_yet: 'Don\'t have an account? Register',
   creating_account: 'Creating account…',
   logging_in: 'Logging in…',
-
+  max_label: 'Max',
   intake_title: 'Tell Us About Your Business',
   intake_subtitle: 'Type or speak in English, Hindi, or Marathi. We will understand your needs and find the best government schemes.',
   intake_placeholder: 'E.g. "I want to start a tailoring business in Pune. I have ₹50,000 and need ₹2 lakh."',
@@ -492,6 +494,7 @@ const EN: Translations = {
 };
 
 const HI: Translations = {
+  top_pick: '✦ #1 चयन',
   app_name: 'योजनामित्र',
   app_tagline: 'AI आधारित योजना मिलान',
   hero_title: 'आपका व्यवसाय। आपकी योजनाएं। एक स्मार्ट गाइड।',
@@ -514,7 +517,7 @@ const HI: Translations = {
   no_account_yet: 'खाता नहीं है? रजिस्टर करें',
   creating_account: 'खाता बना रहे हैं…',
   logging_in: 'लॉगिन हो रहा है…',
-
+  max_label: 'अधिकतम',
   intake_title: 'अपने व्यवसाय के बारे में बताएं',
   intake_subtitle: 'हिंदी, मराठी या अंग्रेजी में टाइप करें या बोलें। हम आपकी जरूरतें समझेंगे।',
   intake_placeholder: 'जैसे: "मुझे पुणे में सिलाई का काम शुरू करना है। मेरे पास ₹50,000 हैं और मुझे ₹2 लाख चाहिए।"',
@@ -731,6 +734,7 @@ const HI: Translations = {
 };
 
 const MR: Translations = {
+  top_pick: '✦ #1 निवड',
   app_name: 'योजनामित्र',
   app_tagline: 'AI आधारित योजना जुळवणी',
   hero_title: 'तुमचा व्यवसाय. तुमच्या योजना. एक स्मार्ट मार्गदर्शक.',
@@ -780,7 +784,7 @@ const MR: Translations = {
   search: 'शोधा',
   filter: 'फिल्टर',
   close: 'बंद करा',
-
+   max_label: 'कमाल',
   we_understood: 'आम्हाला हे समजले',
   business_type: 'व्यवसायाचा प्रकार',
   location: 'ठिकाण',
@@ -969,7 +973,250 @@ const MR: Translations = {
   location_denied: 'स्थान नाकारले',
 };
 
-const TRANSLATIONS: Record<Language, Translations> = { en: EN, hi: HI, mr: MR };
+const GU: Translations = {
+  app_name: 'યોજનામિત્ર',
+  app_tagline: 'AI આધારિત યોજના મેચિંગ',
+  hero_title: 'તમારો વ્યવસાય. તમારી યોજનાઓ. એક સ્માર્ટ માર્ગદર્શક.',
+  hero_subtitle: 'તમારા વ્યવસાય વિશે તમારી પોતાની ભાષામાં જણાવો — અમે તમારા માટે યોગ્ય સરકારી યોજનાઓ શોધીશું.',
+  start_journey: 'શરૂ કરો',
+  try_demo: 'ડેમો જુઓ',
+  top_pick: '✦ #1 પસંદગી',
+  login: 'લૉગિન',
+  register: 'નોંધણી',
+  logout: 'લૉગઆઉટ',
+  email: 'ઈમેલ સરનામું',
+  password: 'પાસવર્ડ',
+  confirm_password: 'પાસવર્ડની પુષ્ટિ કરો',
+  full_name: 'પૂરું નામ',
+  login_title: 'ફરી સ્વાગત છે',
+  login_subtitle: 'યોજનામિત્ર ચાલુ રાખવા માટે લૉગિન કરો',
+  register_title: 'ખાતું બનાવો',
+  register_subtitle: 'યોગ્ય સરકારી યોજના શોધવા માટે યોજનામિત્ર સાથે જોડાઓ',
+  already_have_account: 'પહેલેથી ખાતું છે? લૉગિન કરો',
+  no_account_yet: 'ખાતું નથી? નોંધણી કરો',
+  creating_account: 'ખાતું બની રહ્યું છે…',
+  logging_in: 'લૉગિન થઈ રહ્યું છે…',
+
+  intake_title: 'તમારા વ્યવસાય વિશે જણાવો',
+  intake_subtitle: 'ગુજરાતી, હિન્દી, મરાઠી અથવા અંગ્રેજીમાં ટાઇપ કરો અથવા બોલો. અમે તમારી જરૂરિયાત સમજશું.',
+  intake_placeholder: 'ઉદા. "મારે પુણેમાં સિલાઈનો વ્યવસાય શરૂ કરવો છે. મારી પાસે ₹50,000 છે અને મને ₹2 લાખની જરૂર છે."',
+  intake_voice_hint: 'માઇક્રોફોન પર ક્લિક કરીને બોલો',
+  intake_example: 'આ ઉદાહરણ અજમાવો:',
+  intake_example_text_tailoring: '"મારે પુણેમાં સિલાઈનો વ્યવસાય શરૂ કરવો છે. મારી પાસે ₹50,000 છે અને મને ₹2 લાખની જરૂર છે."',
+  intake_example_text_food: '"મારી પાસે મુંબઈમાં ફૂડ ટ્રક છે અને મારે તેનો વિસ્તાર કરવો છે. મને ₹5 લાખની જરૂર છે."',
+  intake_example_text_vendor: '"હું સ્ટ્રીટ વેન્ડર છું અને મને ₹10,000 કાર્યકારી મૂડીની જરૂર છે."',
+
+  nav_dashboard: 'ડેશબોર્ડ',
+  nav_schemes: 'યોજનાઓ',
+  nav_planner: 'ખર્ચ આયોજન',
+  nav_documents: 'દસ્તાવેજો',
+  nav_readiness: 'તૈયારી',
+  nav_partners: 'ભાગીદાર શોધો',
+  max_label: 'મહત્તમ',
+  continue: 'આગળ વધો',
+  back: 'પાછળ',
+  edit: 'ફેરફાર કરો',
+  confirm: 'પુષ્ટિ કરો અને યોજનાઓ શોધો',
+  save: 'સાચવો',
+  cancel: 'રદ કરો',
+  submit: 'સબમિટ કરો',
+  search: 'શોધો',
+  filter: 'ફિલ્ટર',
+  close: 'બંધ કરો',
+
+  we_understood: 'અમે આ સમજ્યા',
+  business_type: 'વ્યવસાયનો પ્રકાર',
+  location: 'સ્થાન',
+  capital: 'ઉપલબ્ધ મૂડી',
+  loan_needed: 'જરૂરી ભંડોળ',
+  monthly_income: 'માસિક આવક',
+  category: 'સામાજિક વર્ગ',
+  occupation: 'વ્યવસાય',
+  business_stage: 'વ્યવસાયની સ્થિતિ',
+
+  welcome_back: 'ફરી સ્વાગત છે',
+  talk_to_yojanamitra: 'યોજનામિત્ર સાથે વાત કરો',
+  view_schemes: 'મારી યોજનાઓ જુઓ',
+  no_profile_yet: 'તમારા વ્યવસાય વિશે જણાવો',
+  no_profile_desc: 'તમારા વ્યવસાયનું વર્ણન કરો અને અમે તમારા માટે યોગ્ય સરકારી યોજનાઓ શોધીશું.',
+  get_started: 'શરૂ કરો',
+  schemes_matched: 'મેળ ખાતી યોજનાઓ',
+  eligible_now: 'હાલ પાત્ર',
+  documents_ready: 'દસ્તાવેજો તૈયાર',
+  upload_missing: 'ગુમ થયેલા દસ્તાવેજો અપલોડ કરો',
+  readiness_score: 'તૈયારી સ્કોર',
+  top_scheme_matches: 'ટોચની યોજના મેચ',
+  eligibility_snapshot: 'પાત્રતા ઝલક',
+  quick_actions: 'ઝડપી ક્રિયાઓ',
+  view_all: 'બધું જુઓ',
+
+  scheme_passport: 'યોજના પાસપોર્ટ',
+  scheme_passport_subtitle: 'તમારી પ્રોફાઇલ સાથે મેળ ખાતી અને સંબંધિતતા અનુસાર ક્રમબદ્ધ યોજનાઓ. પાત્રતા ચકાસાયેલ નિયમો દ્વારા તપાસવામાં આવે છે.',
+  eligible: 'પાત્ર',
+  not_eligible: 'અપાત્ર',
+  needs_info: 'માહિતી જરૂરી',
+  match_score: 'મેચ સ્કોર',
+  why_matches: 'શા માટે મેળ ખાય છે',
+  eligibility_details: 'પાત્રતા વિગતો',
+  apply_now: 'હમણાં અરજી કરો',
+  no_schemes_found: 'કોઈ મેળ ખાતી યોજના મળી નથી',
+  kaggle_discovery: 'Kaggle ડેટાસેટ શોધ',
+
+  planner_title: 'વ્યવસાય ખર્ચ આયોજન',
+  planner_subtitle: 'તમારા વ્યવસાયના પ્રારંભિક ખર્ચનો અંદાજ લગાવો અને ભંડોળની ખાધ શોધો.',
+  total_cost: 'કુલ વ્યવસાય ખર્ચ',
+  available_capital: 'ઉપલબ્ધ મૂડી',
+  funding_gap: 'ભંડોળની ખાધ',
+  add_item: 'ઉમેરો',
+  equipment: 'સાધનો',
+  setup: 'સેટઅપ અને માળખાકીય સુવિધા',
+  raw_materials: 'કાચો માલ',
+  rent: 'ભાડું / લીઝ',
+  licenses: 'લાઇસન્સ અને નોંધણી',
+  working_capital: 'કાર્યકારી મૂડી',
+  marketing: 'માર્કેટિંગ',
+  contingency: 'આકસ્મિક ખર્ચ (10%)',
+
+  documents_title: 'દસ્તાવેજ ચેકલિસ્ટ',
+  documents_subtitle: 'તમારી ભલામણ કરાયેલી યોજનાઓ માટે જરૂરી દસ્તાવેજો.',
+  required: 'જરૂરી',
+  available: 'ઉપલબ્ધ',
+  missing: 'ગુમ',
+  document_status: 'દસ્તાવેજ સ્થિતિ',
+
+  readiness_title: 'અરજી તૈયારી',
+  readiness_subtitle: 'સરકારી યોજનાઓ માટે અરજી કરવાની તમારી તૈયારી.',
+  application_readiness: 'અરજી તૈયારી',
+
+  partners_title: 'યોગ્ય ભાગીદાર સાથે જોડાઓ',
+  partners_subtitle: 'બેંકો, NGO અને સરકારી કચેરીઓ જે તમારી અરજી પ્રક્રિયા કરવામાં મદદ કરી શકે.',
+  find_partners: 'મારી નજીકના ભાગીદારો શોધો',
+  all_partners: 'બધા ભાગીદારો',
+  banks: 'બેંકો / NBFC',
+  ngos: 'NGO',
+  govt_offices: 'સરકારી કચેરીઓ',
+  online: 'ઓનલાઇન',
+  connect_partner: 'આ ભાગીદાર સાથે જોડાઓ',
+  km_away: 'કિમી દૂર',
+  rating: 'રેટિંગ',
+  supported_schemes: 'સમર્થિત યોજનાઓ',
+  languages_spoken: 'ભાષાઓ',
+  map_view: 'નકશા દૃશ્ય',
+  list_view: 'યાદી દૃશ્ય',
+  map_unavailable: 'નકશાનું પૂર્વાવલોકન — સંપૂર્ણ નકશા માટે Google Maps API કી ગોઠવો',
+
+  language: 'ભાષા',
+  voice_listening: 'સાંભળી રહ્યા છીએ…',
+  voice_start: 'બોલવાનું શરૂ કરો',
+  voice_stop: 'રોકો',
+  voice_unsupported: 'આ બ્રાઉઝરમાં વૉઇસ ઇનપુટ સપોર્ટેડ નથી. કૃપા કરીને ટેક્સ્ટ ઇનપુટનો ઉપયોગ કરો.',
+
+  voice_output_listen: '🔊 સાંભળો',
+  voice_output_speaking: '🔊 બોલી રહ્યા છીએ…',
+  voice_output_stop: '⏹ રોકો',
+
+  how_to_fill_form: 'ફોર્મ કેવી રીતે ભરવું',
+  watch_tutorial: 'ટ્યુટોરિયલ જુઓ',
+  form_tutorial_desc: 'અરજી કેવી રીતે ભરવી અને સબમિટ કરવી તેની પગલું-દર-પગલું વિડિયો માર્ગદર્શિકા.',
+
+  demo_profile_loaded: 'પૂર્વાવલોકન માટે ડેમો પ્રોફાઇલ લોડ કરવામાં આવી',
+  profile_review_title: 'અમે આ સમજ્યા',
+  profile_review_subtitle: 'યોજનાઓ શોધતા પહેલાં કોઈપણ ક્ષેત્રની સમીક્ષા કરો અને તેમાં ફેરફાર કરો.',
+  quick_eligibility_toggles: 'ઝડપી પાત્રતા વિકલ્પો',
+  street_vendor_label: 'સ્ટ્રીટ વેન્ડર',
+  aadhaar_available: 'આધાર ઉપલબ્ધ',
+  pan_available: 'PAN ઉપલબ્ધ',
+  bank_account_label: 'બેંક ખાતું',
+  existing_loan_label: 'હાલની લોન છે',
+  cibil_default_label: 'CIBIL ડિફૉલ્ટ',
+  prev_pmegp_label: 'અગાઉના PMEGP લાભાર્થી',
+  caste_cert_label: 'જાતિ પ્રમાણપત્ર ઉપલબ્ધ',
+  street_vendor_cert_label: 'સ્ટ્રીટ વેન્ડર પ્રમાણપત્ર (CoV)',
+
+  emi_title: 'EMI અને ચુકવણી ક્ષમતા કેલ્ક્યુલેટર',
+  emi_monthly: 'માસિક EMI',
+  emi_total_interest: 'કુલ વ્યાજ',
+  emi_total_payment: 'કુલ ચુકવણી',
+  emi_loan_amount: 'લોન રકમ (₹)',
+  emi_interest_rate: 'વાર્ષિક વ્યાજ દર (%)',
+  emi_tenure_months: 'સમયગાળો (મહિના)',
+
+  support_stack_title: 'તમારો સહાય સ્ટેક',
+
+  profile_incomplete: 'કેટલીક માહિતી અધૂરી છે. કૃપા કરીને તમારી પ્રોફાઇલ પૂર્ણ કરો.',
+  loading: 'લોડ થઈ રહ્યું છે…',
+  no_match_found: 'કોઈ મેળ ખાતી યોજના મળી નથી',
+  no_match_desc: 'ચકાસાયેલ ડેટાબેઝમાં તમારી વર્તમાન પ્રોફાઇલ સાથે મેળ ખાતી કોઈ સરકારી યોજના નથી. તમારી પ્રોફાઇલની વિગતો બદલવાનો પ્રયાસ કરો.',
+  more_info_required: 'વધુ માહિતી જરૂરી છે',
+  field_required: 'આ ક્ષેત્ર જરૂરી છે.',
+  invalid_email: 'કૃપા કરીને માન્ય ઈમેલ સરનામું દાખલ કરો.',
+  password_too_short: 'પાસવર્ડ ઓછામાં ઓછો 6 અક્ષરનો હોવો જોઈએ.',
+  passwords_dont_match: 'પાસવર્ડ મેળ ખાતા નથી.',
+  profile_extracted: 'પ્રોફાઇલ તૈયાર કરવામાં આવી',
+  review_edit: 'યોજનાઓ શોધતા પહેલાં કોઈપણ ક્ષેત્રની સમીક્ષા કરો અને તેમાં ફેરફાર કરો.',
+
+  complete_your_profile: 'તમારી પ્રોફાઇલ પૂર્ણ કરો',
+  complete_profile_desc: 'વ્યક્તિગત સરકારી યોજનાઓ શોધવા માટે તમારી પ્રોફાઇલ પૂર્ણ કરો.',
+  not_provided: 'આપવામાં આવ્યું નથી',
+  not_calculated: 'ગણતરી કરવામાં આવી નથી',
+  self_funding: 'સ્વ-ભંડોળ',
+
+  checks_done: 'ચકાસણીઓ પૂર્ણ',
+  items_still_needed: 'હજી જરૂરી વસ્તુઓ',
+  engine_ranked_note: 'એન્જિન દ્વારા ક્રમબદ્ધ · મેચ સ્કોર ≠ પાત્રતા',
+  capital_label: 'મૂડી',
+  readiness_excellent: 'ઉત્તમ',
+  readiness_good: 'સારું',
+  readiness_fair: 'યોગ્ય',
+  readiness_needs_work: 'સુધારાની જરૂર',
+  proceed_to_partners: 'ભાગીદાર રાઉટિંગ તરફ આગળ વધો',
+  readiness_breakdown: 'તૈયારીનું વિભાજન',
+  completed_checks: 'પૂર્ણ થયેલી ચકાસણીઓ',
+  incomplete_checks: 'અપૂર્ણ ચકાસણીઓ',
+  go_complete: 'જાઓ અને પૂર્ણ કરો',
+
+  all_types: 'બધા પ્રકાર',
+  all_status: 'બધી સ્થિતિ',
+  funding_label: 'ભંડોળ',
+  success_rate: 'સફળતા દર',
+  processing_time: 'પ્રક્રિયા સમય',
+  why_matches_you: 'શા માટે તે તમારી સાથે મેળ ખાય છે',
+  missing_requirements: 'ગુમ થયેલી આવશ્યકતાઓ',
+  official_source: 'સત્તાવાર સ્ત્રોત',
+  apply_online: 'ઓનલાઇન અરજી કરો',
+  apply_offline: 'ઓફલાઇન અરજી કરો',
+  helpline: 'હેલ્પલાઇન',
+  no_recommendations_yet: 'હજુ સુધી કોઈ ભલામણ નથી',
+  complete_profile_for_schemes: 'વ્યક્તિગત યોજના મેચ જોવા માટે તમારી પ્રોફાઇલ પૂર્ણ કરો.',
+  ai_recommended: 'AI ભલામણ',
+
+  use_my_location: 'મારું સ્થાન વાપરો',
+  locating: 'સ્થાન શોધી રહ્યા છીએ…',
+  your_location: 'તમારું સ્થાન',
+  optimized_route: 'અનુકૂળ માર્ગ',
+  partners_found: 'ભાગીદારો મળ્યા',
+  nearest: 'સૌથી નજીક',
+  top_match: 'ટોચની મેચ',
+  recommended_partners: 'ભલામણ કરાયેલા ભાગીદારો',
+  platform_note_title: 'યોજનામિત્ર તમને જોડે છે — તમારા વતી અરજી કરતું નથી.',
+  intelligent_routing: 'તમારી ટોચની યોજના માટે ભાગીદારો ક્રમબદ્ધ કરવામાં આવ્યા છે',
+
+  no_docs_required: 'હજુ કોઈ દસ્તાવેજ જરૂરી નથી.',
+
+  something_went_wrong: 'કંઈક ખોટું થયું. કૃપા કરીને ફરી પ્રયાસ કરો.',
+  find_my_schemes: 'મારી યોજનાઓ શોધો',
+  clear: 'સાફ કરો',
+  schemes_discovered: 'સંબંધિત યોજનાઓ મળી',
+  location_active: 'સ્થાન સક્રિય',
+  location_denied: 'સ્થાન નકારવામાં આવ્યું',
+};
+
+const TRANSLATIONS: Record<Language, Translations> = {
+  en: EN,
+  hi: HI,
+  mr: MR,
+  gu: GU,
+};
 
 export function t(key: TranslationKey, lang: Language): string {
   return TRANSLATIONS[lang]?.[key] ?? TRANSLATIONS.en[key] ?? key;

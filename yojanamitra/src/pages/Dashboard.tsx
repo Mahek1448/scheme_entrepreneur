@@ -1,6 +1,6 @@
 /**
  * Dashboard.tsx — Main dashboard with TWO states:
- *
+ * 
  * STATE A (profile incomplete): Shows the FULL dashboard layout with placeholder dashes.
  *   → Same visual structure as State B, no data yet.
  *
@@ -285,7 +285,7 @@ export default function Dashboard() {
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         {idx === 0 && (
                           <span className="text-xs bg-green-600 text-white font-bold px-2 py-0.5 rounded-full">
-                            ✦ #1 Pick
+                           {t('top_pick', language)}
                           </span>
                         )}
                         <p className="font-semibold text-gray-900 text-sm group-hover:text-[#1e3a5f] transition-colors">
@@ -295,7 +295,7 @@ export default function Dashboard() {
                       </div>
                       <p className="text-xs text-gray-500 truncate">
                         {result.scheme.ministry}
-                        {maxFunding > 0 && ` · Max ${formatCurrency(maxFunding)}`}
+                        {maxFunding > 0 && ` {t('max_label', language)} {formatCurrency(maxFunding)}`}
                       </p>
                       {result.whyItMatches[0] && (
                         <p className="text-xs text-gray-400 mt-1 truncate">{result.whyItMatches[0]}</p>

@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles, Shield, CheckCircle2, Users, TrendingUp, Mic } from 'lucide-react';
 import { useAppStore } from '../hooks/useAppStore';
-
+import { useEffect, useState } from "react";
 const FEATURES = [
   { icon: Sparkles, title: 'AI Scheme Matching', description: 'Describe your business; our AI identifies the most relevant government schemes instantly.' },
-  { icon: Shield, title: 'Verified Eligibility', description: 'Deterministic rule engine checks every eligibility criterion — no guesswork, no false hope.' },
+  { icon: Shield, title: 'Verified Eligibility', description: 'Deterministic rule engine checks every eligibility criterion - no guesswork, no false hope.' },
   { icon: CheckCircle2, title: 'Document Readiness', description: 'Know exactly which documents you need and track what you already have.' },
   { icon: TrendingUp, title: 'Business Cost Planner', description: 'Calculate startup costs, identify funding gaps, and plan capital requirements.' },
   { icon: Users, title: 'Partner Routing', description: 'Find the nearest bank, NGO, or government office that can process your application.' },
-  { icon: Mic, title: 'Voice Input', description: 'Speak in English, Hindi, or Marathi — our AI understands your needs.' },
+  { icon: Mic, title: 'Voice Input', description: 'Speak in English, Hindi, or Marathi - our AI understands your needs.' },
 ];
 
 const STATS = [
@@ -26,6 +26,47 @@ const HOW_IT_WORKS = [
 ];
 
 export default function Landing() {
+    const [howItWorksVisible, setHowItWorksVisible] = useState(false);
+
+  useEffect(() => {
+    const section = document.getElementById("how-it-works");
+
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHowItWorksVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+  const [mousePosition, setMousePosition] = useState({
+    x: 0,
+    y: 0,
+  });
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+   
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
   const navigate = useNavigate();
   const { currentUser } = useAppStore();
 
@@ -40,22 +81,22 @@ export default function Landing() {
   const handleLogin = () => navigate('/login');
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Navigation Bar */}
-      <header className="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm z-40">
+  <header className="absolute top-0 left-0 right-0 bg-transparent z-40 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-[#1e3a5f] flex items-center justify-center font-bold text-white text-sm">
               YM
             </div>
-            <span className="font-bold text-lg text-[#1e3a5f] tracking-tight">
-              Yojana<span className="text-orange-500">Mitra</span>
-            </span>
+            <span className="font-bold text-lg text-white tracking-tight">
+  Yojana<span className="text-orange-500">Mitra</span>
+</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-            <a href="#features" className="hover:text-[#1e3a5f] transition-colors">Features</a>
-            <a href="#how-it-works" className="hover:text-[#1e3a5f] transition-colors">How It Works</a>
-            <a href="#schemes" className="hover:text-[#1e3a5f] transition-colors">Schemes</a>
+          <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
+            <a href="#features" className="hover:text-white transition-colors">Features</a>
+            <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
+            <a href="#schemes" className="hover:text-white transition-colors">Schemes</a>
           </nav>
           <div className="flex items-center gap-3">
             {currentUser ? (
@@ -64,7 +105,7 @@ export default function Landing() {
               </button>
             ) : (
               <>
-                <button onClick={handleLogin} className="hidden sm:block text-sm font-medium text-[#1e3a5f] hover:underline">
+                <button onClick={handleLogin} className="hidden sm:block text-sm font-medium text-white hover:text-white/80 transition-colors">
                   Login
                 </button>
                 <button onClick={handleStart} className="btn-primary text-sm py-2 px-4">
@@ -77,12 +118,32 @@ export default function Landing() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0f1c30] via-[#1e3a5f] to-[#16345a] text-white">
+      <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f1c30] via-[#1e3a5f] to-[#16345a] text-white">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+
+        <div className="absolute inset-0 bg-black/50" />
+        <div
+          className="pointer-events-none absolute z-[1] hidden h-[500px] w-[500px] rounded-full opacity-20 blur-3xl md:block"
+          style={{
+            left: mousePosition.x - 250,
+            top: mousePosition.y - 250,
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%)",
+          }}
+        />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-400 rounded-full filter blur-3xl translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400 rounded-full filter blur-3xl -translate-x-1/2 translate-y-1/2" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
               Your Business.<br />
@@ -91,7 +152,7 @@ export default function Landing() {
             </h1>
             <p className="text-lg text-white/75 mb-10 max-w-2xl mx-auto leading-relaxed">
               YojanaMitra helps entrepreneurs discover the right government schemes, check real eligibility,
-              prepare documents, and connect with the right partner — all in one place.
+              prepare documents, and connect with the right partner - all in one place.
             </p>
             <div className="flex flex-wrap gap-4 justify-center mb-16">
               <button onClick={handleStart} className="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg transition-colors text-base">
@@ -140,7 +201,7 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-extrabold text-[#1e3a5f] mb-3">Everything You Need, In One Place</h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">From idea to funding — YojanaMitra walks you through every step of the government scheme journey.</p>
+            <p className="text-gray-500 text-lg max-w-xl mx-auto">From idea to funding - YojanaMitra walks you through every step of the government scheme journey.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {FEATURES.map(({ icon: Icon, title, description }) => (
@@ -159,21 +220,68 @@ export default function Landing() {
       {/* How It Works */}
       <section id="how-it-works" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-[#1e3a5f] mb-3">How YojanaMitra Works</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">A simple, guided flow that takes you from idea to application in minutes.</p>
+
+          {/* Heading */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold text-[#1e3a5f] mb-3">
+              How YojanaMitra Works
+            </h2>
+
+            <p className="text-gray-500 max-w-xl mx-auto">
+              A simple, guided flow that takes you from idea to application in minutes.
+            </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {HOW_IT_WORKS.map(({ step, title, description }) => (
-              <div key={step} className="text-center">
-                <div className="w-14 h-14 rounded-2xl bg-orange-50 border-2 border-orange-200 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-orange-600 font-extrabold text-lg">{step}</span>
+
+          {/* Steps */}
+          <div className="relative">
+
+            {/* Animated connecting line */}
+            <div
+              className={`hidden lg:block absolute top-7 left-[12%] right-[12%] h-px bg-orange-200 origin-left transition-transform duration-1000 ${howItWorksVisible ? "scale-x-100" : "scale-x-0"
+                }`}
+            />
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+              {HOW_IT_WORKS.map(({ step, title, description }, index) => (
+
+                <div
+                  key={step}
+                  className={`group relative text-center transition-all duration-700 ${howItWorksVisible
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-10"
+                    }`}
+                  style={{
+                    transitionDelay: `${index * 150}ms`,
+                  }}
+                >
+
+                  {/* Step number */}
+                  <div className="relative z-10 w-14 h-14 rounded-2xl bg-orange-50 border-2 border-orange-200 flex items-center justify-center mx-auto mb-5 transition-all duration-300 group-hover:bg-orange-100 group-hover:border-orange-400 group-hover:scale-110 group-hover:shadow-lg">
+
+                    <span className="text-orange-600 font-extrabold text-lg">
+                      {step}
+                    </span>
+
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-bold text-[#1e3a5f] mb-2 transition-colors duration-300 group-hover:text-orange-600">
+                    {title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-xs mx-auto">
+                    {description}
+                  </p>
+
                 </div>
-                <h3 className="font-bold text-[#1e3a5f] mb-1.5">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
-              </div>
-            ))}
+
+              ))}
+
+            </div>
           </div>
+
         </div>
       </section>
 

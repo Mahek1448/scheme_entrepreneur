@@ -15,7 +15,7 @@ import type { Language } from '../services/i18n';
 
 // ── Language-keyed helper phrases ────────────────────────────────────────────
 const LABELS = {
-  backToSchemes:    { en: '← Back to Scheme Passport', hi: '← योजना पासपोर्ट पर वापस', mr: '← योजना पासपोर्टवर परत' },
+  backToSchemes:    { en: ' Back to Scheme Passport', hi: ' योजना पासपोर्ट पर वापस', mr: ' योजना पासपोर्टवर परत' },
   yourValue:        { en: 'Your value:', hi: 'आपका मूल्य:', mr: 'तुमचे मूल्य:' },
   requiredValue:    { en: 'Required:', hi: 'आवश्यक:', mr: 'आवश्यक:' },
   blocking:         { en: 'BLOCKING', hi: 'बाधक', mr: 'अवरोधक' },
@@ -43,7 +43,7 @@ const LABELS = {
   blockingLabel:    { en: '✗ Blocking', hi: '✗ बाधक', mr: '✗ अवरोधक' },
   missingInfo:      { en: '⚠ Missing Info', hi: '⚠ जानकारी गायब', mr: '⚠ माहिती गहाळ' },
   schemeNotFound:   { en: 'Scheme not found.', hi: 'योजना नहीं मिली।', mr: 'योजना सापडली नाही.' },
-  backToSchemesBtn: { en: '← Back to Schemes', hi: '← योजनाओं पर वापस', mr: '← योजनांकडे परत' },
+  backToSchemesBtn: { en: ' Back to Schemes', hi: ' योजनाओं पर वापस', mr: ' योजनांकडे परत' },
   howToFillForm:    { en: 'How to Fill the Form', hi: 'फॉर्म कैसे भरें', mr: 'फॉर्म कसा भरावा' },
   watchTutorial:    { en: 'Watch Tutorial', hi: 'ट्यूटोरियल देखें', mr: 'ट्यूटोरियल पहा' },
   formTutorialDesc: { en: 'Step-by-step video guide on how to fill and submit the application.', hi: 'आवेदन भरने और जमा करने का चरण-दर-चरण वीडियो गाइड।', mr: 'अर्ज भरण्यासाठी आणि सबमिट करण्यासाठी पायरी-पायरी व्हिडिओ मार्गदर्शक.' },

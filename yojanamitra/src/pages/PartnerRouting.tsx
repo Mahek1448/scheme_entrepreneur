@@ -369,17 +369,7 @@ export default function PartnerRouting() {
       </div>
 
       {/* Intelligent routing info */}
-      {topScheme && (
-        <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-3 mb-4 flex items-center gap-3">
-          <span className="text-xl">🎯</span>
-          <p className="text-sm text-indigo-800">
-            <span className="font-semibold">Intelligent partner routing active.</span>{' '}
-            Partners ranked for your top scheme: <strong>{topScheme.shortName}</strong>.
-            {profile.isStreetVendor && ' Street vendor support partners prioritized.'}
-          </p>
-        </div>
-      )}
-
+      
       {/* Filter Pills */}
       <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
         <div className="flex flex-wrap gap-2">
@@ -545,9 +535,7 @@ export default function PartnerRouting() {
                   {/* Top Pick badge */}
                   {isTopPick && (
                     <div className="flex items-center gap-1.5 mb-2">
-                      <span className="inline-flex items-center gap-1 text-xs bg-green-600 text-white font-bold px-2.5 py-0.5 rounded-full">
-                        ✦ AI Recommended
-                      </span>
+                     
                     </div>
                   )}
 
@@ -672,7 +660,7 @@ export default function PartnerRouting() {
 
       {/* Bottom disclaimer */}
       <div className="mt-6 bg-blue-50 border border-blue-200 rounded-2xl p-4">
-        <p className="text-sm font-bold text-blue-800 mb-0.5">YojanaMitra connects you — not applies for you.</p>
+        <p className="text-sm font-bold text-blue-800 mb-0.5">YojanaMitra connects you - not applies for you.</p>
         <p className="text-xs text-blue-700">
           This platform prepares your profile, matches schemes, checks eligibility, and connects you with the
           right partner. The partner (bank, NGO, or government office) will process your actual application.

@@ -23,7 +23,7 @@ import { t, LANGUAGE_LABELS, type Language } from '../services/i18n';
 import { cn } from '../utils';
 
 // EN + HI + MR — MR is visible, falls back gracefully to existing MR translations
-const LANGUAGES: Language[] = ['en', 'hi', 'mr'];
+const LANGUAGES: Language[] = ['en', 'hi', 'mr', 'gu'];
 
 // Diverse examples — NO chai stall as default
 const EXAMPLES: Record<Language, { text: string; label: string; icon: string }[]> = {

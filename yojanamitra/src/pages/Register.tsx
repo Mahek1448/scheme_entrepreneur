@@ -49,7 +49,7 @@ export default function Register() {
     <div
       className="min-h-screen flex items-center justify-center px-4 py-10"
       style={{
-        backgroundImage: 'url(/login-background.jpeg)',
+        backgroundImage: 'url(/profile-background.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -57,15 +57,7 @@ export default function Register() {
       }}
     >
       {/* Subtle overlay so the white card stays readable */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.35)',
-          zIndex: 0,
-        }}
-        aria-hidden="true"
-      />
+    
       {/* Scoped wrapper that sits above the overlay */}
       <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'center' }}>
       <div className="w-full max-w-md">
@@ -73,9 +65,15 @@ export default function Register() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 text-white mb-2">
             <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center font-bold text-white text-lg">YM</div>
-            <span className="font-extrabold text-2xl tracking-tight">Yojana<span className="text-orange-400">Mitra</span></span>
+           <div className="inline-flex items-center gap-2 text-[#1e3a5f] mb-2">
+
+
+                <span className="font-extrabold text-2xl tracking-tight">
+                  Yojana<span className="text-orange-500">Mitra</span>
+                </span>
+              </div>
           </div>
-          <p className="text-white/60 text-sm">{t('app_tagline', language)}</p>
+          <p className="text-[#1e3a5f]/70 text-sm font-medium">{t('app_tagline', language)}</p>
         </div>
 
         {/* Card */}
